@@ -1,0 +1,698 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HR Digest — UK Employment Brief</title>
+<style>
+  :root {
+    --bg: #F4F6F5;
+    --surface: #FFFFFF;
+    --surface-2: #EDF1F0;
+    --ink: #182B2E;
+    --ink-2: #46595C;
+    --muted: #75878A;
+    --line: #DCE4E2;
+    --line-strong: #C4D0CD;
+    --accent: #0F6963;
+    --accent-soft: #E1EEEC;
+    --live: #2C7A3F;
+    --live-soft: #E3EFE4;
+    --soon: #B25E0B;
+    --soon-soft: #F6EBDC;
+    --ahead: #5B6E72;
+    --ahead-soft: #E8EDEC;
+    --crit: #B3372B;
+    --crit-soft: #F5E4E1;
+    --serif: "Iowan Old Style", "Charter", "Georgia", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1716;
+      --surface: #17221F;
+      --surface-2: #1D2A27;
+      --ink: #E5ECEA;
+      --ink-2: #ABBBB8;
+      --muted: #748683;
+      --line: #253330;
+      --line-strong: #33443F;
+      --accent: #55B8AC;
+      --accent-soft: #1B322F;
+      --live: #66BD7C;
+      --live-soft: #1D2F22;
+      --soon: #DE9C4F;
+      --soon-soft: #33281A;
+      --ahead: #8CA0A3;
+      --ahead-soft: #222E2F;
+      --crit: #DE7263;
+      --crit-soft: #362220;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1716;
+    --surface: #17221F;
+    --surface-2: #1D2A27;
+    --ink: #E5ECEA;
+    --ink-2: #ABBBB8;
+    --muted: #748683;
+    --line: #253330;
+    --line-strong: #33443F;
+    --accent: #55B8AC;
+    --accent-soft: #1B322F;
+    --live: #66BD7C;
+    --live-soft: #1D2F22;
+    --soon: #DE9C4F;
+    --soon-soft: #33281A;
+    --ahead: #8CA0A3;
+    --ahead-soft: #222E2F;
+    --crit: #DE7263;
+    --crit-soft: #362220;
+  }
+  :root[data-theme="light"] {
+    --bg: #F4F6F5;
+    --surface: #FFFFFF;
+    --surface-2: #EDF1F0;
+    --ink: #182B2E;
+    --ink-2: #46595C;
+    --muted: #75878A;
+    --line: #DCE4E2;
+    --line-strong: #C4D0CD;
+    --accent: #0F6963;
+    --accent-soft: #E1EEEC;
+    --live: #2C7A3F;
+    --live-soft: #E3EFE4;
+    --soon: #B25E0B;
+    --soon-soft: #F6EBDC;
+    --ahead: #5B6E72;
+    --ahead-soft: #E8EDEC;
+    --crit: #B3372B;
+    --crit-soft: #F5E4E1;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
+
+  /* ---------- Stale notice ---------- */
+  .stale {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    background: var(--soon-soft);
+    color: var(--soon);
+    border: 1px solid var(--soon);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .stale[hidden] { display: none; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 24px;
+  }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 2px;
+    text-wrap: balance;
+  }
+  .masthead .strap {
+    color: var(--ink-2);
+    font-size: 13.5px;
+    margin: 0;
+  }
+  .masthead .dateblock {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .masthead .dateblock strong {
+    display: block;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ---------- Labels & chips ---------- */
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 9px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-family: var(--sans);
+  }
+  .chip-live  { color: var(--live);  background: var(--live-soft); }
+  .chip-soon  { color: var(--soon);  background: var(--soon-soft); }
+  .chip-ahead { color: var(--ahead); background: var(--ahead-soft); }
+  .chip-crit  { color: var(--crit);  background: var(--crit-soft); }
+  .chip-accent{ color: var(--accent);background: var(--accent-soft); }
+
+  /* ---------- At-a-glance tiles ---------- */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px 14px;
+  }
+  .tile .k {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .tile .v {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .tile .s { font-size: 12.5px; color: var(--ink-2); }
+
+  /* ---------- Grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.9fr) minmax(280px, 1fr);
+    gap: 22px;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .grid { grid-template-columns: 1fr; }
+    .masthead .dateblock { text-align: left; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 22px;
+  }
+  .card h2 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    text-wrap: balance;
+  }
+  .card .sub { color: var(--muted); font-size: 12.5px; margin: 0 0 16px; }
+
+  /* ---------- News ---------- */
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li {
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .news li:first-child { border-top: 0; padding-top: 4px; }
+  .news .nd {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .news h3 { font-size: 14.5px; font-weight: 650; margin: 0 0 3px; }
+  .news p { margin: 0 0 6px; color: var(--ink-2); font-size: 13.5px; }
+  .news .act {
+    font-size: 12.5px;
+    color: var(--ink);
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    padding: 5px 10px;
+    border-radius: 0 6px 6px 0;
+    display: inline-block;
+  }
+  .news .act b { color: var(--accent); font-weight: 700; }
+
+  /* ---------- Timeline ---------- */
+  .tl { list-style: none; margin: 0; padding: 0; }
+  .tl li {
+    position: relative;
+    padding: 0 0 18px 26px;
+    border-left: 2px solid var(--line-strong);
+    margin-left: 6px;
+  }
+  .tl li:last-child { padding-bottom: 2px; }
+  .tl li::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ahead);
+    border: 2px solid var(--surface);
+  }
+  .tl li.is-live::before { background: var(--live); }
+  .tl li.is-soon::before { background: var(--soon); }
+  .tl .tld {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+  }
+  .tl h3 { font-size: 14.5px; font-weight: 650; margin: 0 0 2px; }
+  .tl p { margin: 0; font-size: 13px; color: var(--ink-2); }
+
+  /* ---------- Rates table ---------- */
+  .rates { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rates th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 7px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .rates th:not(:first-child), .rates td:not(:first-child) { text-align: right; }
+  .rates td {
+    padding: 7px 0 7px 10px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2);
+  }
+  .rates td:first-child { padding-left: 0; }
+  .rates td:not(:first-child) {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .rates tr:last-child td { border-bottom: 0; }
+  .rates td.up   { color: var(--live); }
+  .rates td.par  { color: var(--muted); font-weight: 500; }
+  .rates td.down { color: var(--soon); }
+  .rates-note { font-size: 11.5px; color: var(--muted); margin: 10px 0 0; line-height: 1.6; }
+  .rates-note b { font-weight: 650; }
+  .rates-note .sw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 3px 0 6px; vertical-align: baseline; }
+
+  /* ---------- Deadlines ---------- */
+  .dl { list-style: none; margin: 0; padding: 0; }
+  .dl li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .dl li:last-child { border-bottom: 0; }
+  .dl .dt { color: var(--ink); font-weight: 550; }
+  .dl .dwhen {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Case law ---------- */
+  .cases { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+  .cases li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .cases li:last-child { border-bottom: 0; }
+  .cases .cn { font-style: italic; font-family: var(--serif); font-weight: 600; }
+  .cases p { margin: 2px 0 0; color: var(--ink-2); font-size: 12.5px; }
+
+  /* ---------- Checklist ---------- */
+  .check { list-style: none; margin: 0; padding: 0; }
+  .check li { border-bottom: 1px solid var(--line); }
+  .check li:last-child { border-bottom: 0; }
+  .check label {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    padding: 9px 0;
+    font-size: 13px;
+    color: var(--ink-2);
+    cursor: pointer;
+    align-items: start;
+  }
+  .check input {
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  .check input:checked + span { text-decoration: line-through; color: var(--muted); }
+  .check .why { display: block; font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+  .check-progress { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+
+  /* ---------- Footer ---------- */
+  .sources { font-size: 12px; color: var(--muted); line-height: 1.9; }
+  .sources a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--line-strong); }
+  .sources a:hover { color: var(--accent); }
+  footer { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+  footer p { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tile, .card { transition: border-color 120ms ease; }
+    .tile:hover, .card:hover { border-color: var(--line-strong); }
+  }
+</style>
+
+<div class="wrap" data-compiled="2026-07-19">
+
+  <div class="stale" id="stale-note" hidden></div>
+
+  <header class="masthead">
+    <div>
+      <h1>The HR Digest</h1>
+      <p class="strap">UK employment law &amp; people compliance — everything on your radar, one page.</p>
+    </div>
+    <div class="dateblock">
+      <strong>Saturday 19 July 2026</strong>
+      Brief compiled 19 Jul 2026 · UK-wide
+    </div>
+  </header>
+
+  <section aria-label="At a glance">
+    <div class="tiles">
+      <div class="tile">
+        <div class="k">Next milestone</div>
+        <div class="v">1 Oct 2026</div>
+        <div class="s"><span class="chip chip-soon" data-due="2026-10-01">—</span>&nbsp; Tribunal limits, harassment duty, right-to-work checks</div>
+      </div>
+      <div class="tile">
+        <div class="k">Open consultations</div>
+        <div class="v">2</div>
+        <div class="s">Carers' rights closes <b>1 Sep</b> · Holiday pay enforcement closes <b>22 Sep</b></div>
+      </div>
+      <div class="tile">
+        <div class="k">Unfair dismissal qualifying period</div>
+        <div class="v">2 yrs → 6 mo</div>
+        <div class="s">From <b>1 Jan 2027</b>, with the compensation cap removed</div>
+      </div>
+      <div class="tile">
+        <div class="k">National Living Wage (21+)</div>
+        <div class="v">£12.71<span style="font-size:15px; color:var(--muted);">/hr</span></div>
+        <div class="s">In force since 1 Apr 2026 (up from £12.21)</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <main>
+
+      <section class="card" aria-labelledby="news-h">
+        <p class="eyebrow">This week &amp; recent</p>
+        <h2 id="news-h">What's moving right now</h2>
+        <p class="sub">Developments from the last few weeks that change what HR should be doing.</p>
+        <ul class="news">
+          <li>
+            <span class="nd">6 Jul 26</span>
+            <div>
+              <h3>Union access Code of Practice laid before Parliament</h3>
+              <p>The <b>30 October</b> regime is confirmed: unions can request access to workplaces with 21+ staff; you get 15 working days to respond. Breach penalties reach £500k.</p>
+              <span class="act"><b>Do:</b> name an owner and draft a response process.</span>
+            </div>
+          </li>
+          <li>
+            <span class="nd">Jul 26</span>
+            <div>
+              <h3>Holiday pay enforcement consultation</h3>
+              <p>The Fair Work Agency would police statutory holiday pay with a <b>six-year look-back</b> (running since 18 Dec 2025) and public naming. Closes 22 Sep.</p>
+              <span class="act"><b>Do:</b> audit holiday pay and records now — the clock is running.</span>
+            </div>
+          </li>
+          <li>
+            <span class="nd">1 Oct 26</span>
+            <div>
+              <h3>Right-to-work checks extend beyond employees</h3>
+              <p>Checks must cover workers, sub-contractors and gig staff; penalties rise to <b>£45,000–£60,000</b> per illegal worker.</p>
+              <span class="act"><b>Do:</b> update onboarding; train anyone engaging contractors.</span>
+            </div>
+          </li>
+          <li>
+            <span class="nd">19 Jun 26</span>
+            <div>
+              <h3>Data protection complaints need an internal route</h3>
+              <p>Staff must get an internal complaints procedure (even informal complaints) before the ICO; acknowledge within <b>30 days</b>.</p>
+              <span class="act"><b>Do:</b> add the procedure; brief managers.</span>
+            </div>
+          </li>
+          <li>
+            <span class="nd">Jun 26</span>
+            <div>
+              <h3>Tribunal claims: three months becomes six</h3>
+              <p>Acts on or after <b>1 October</b> get a six-month claim window — a longer tail of exposure after any dispute.</p>
+              <span class="act"><b>Do:</b> keep dismissal paper-trails to a six-month standard.</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="radar-h">
+        <p class="eyebrow">Legislation radar</p>
+        <h2 id="radar-h">Employment Rights Act 2025 — the rollout</h2>
+        <p class="sub">Royal Assent 18 Dec 2025; provisions commence in waves. Green is in force, amber is next, grey is further out.</p>
+        <ul class="tl">
+          <li class="is-live">
+            <div class="tld">18 FEB 2026 <span class="chip chip-live">In force</span></div>
+            <h3>Industrial action reforms</h3>
+            <p>Strike notice cut 14 → 10 days, ballot mandates extended 6 → 12 months, new protection from dismissal for industrial action.</p>
+          </li>
+          <li class="is-live">
+            <div class="tld">6 APR 2026 <span class="chip chip-live">In force</span></div>
+            <h3>The April package</h3>
+            <p>SSP from day one with the lower earnings limit removed · day-one paternity &amp; unpaid parental leave · collective-redundancy protective award doubled to 180 days' pay · six-year holiday pay record-keeping duty · Fair Work Agency established · whistleblowing protections widened.</p>
+          </li>
+          <li class="is-soon">
+            <div class="tld">AUG 2026 <span class="chip chip-soon" data-due="2026-08-01">—</span></div>
+            <h3>Electronic balloting</h3>
+            <p>E-balloting for industrial action; repeal of the 50% turnout threshold expected (timing to be confirmed).</p>
+          </li>
+          <li class="is-soon">
+            <div class="tld">1 OCT 2026 <span class="chip chip-soon" data-due="2026-10-01">—</span></div>
+            <h3>The October package</h3>
+            <p>Tribunal time limits 3 → 6 months · duty to take "all reasonable steps" to prevent sexual harassment · liability for third-party harassment across all protected characteristics · workers must be told of their right to join a union · expanded right-to-work checks.</p>
+          </li>
+          <li class="is-soon">
+            <div class="tld">30 OCT 2026 <span class="chip chip-soon" data-due="2026-10-30">—</span></div>
+            <h3>Union access rights</h3>
+            <p>Access regime live for employers with 21+ employees; agreed-terms breaches attract penalties up to £500k.</p>
+          </li>
+          <li>
+            <div class="tld">LATE 2026 <span class="chip chip-ahead">Ahead</span></div>
+            <h3>Autumn stragglers</h3>
+            <p>Fair pay agreement process launches in adult social care; tipping reforms rescheduled from October to end of 2026.</p>
+          </li>
+          <li>
+            <div class="tld">1 JAN 2027 <span class="chip chip-ahead">Ahead</span></div>
+            <h3>The January cliff</h3>
+            <p>Unfair dismissal qualifying period drops to six months and the compensatory cap goes · fire-and-rehire becomes automatically unfair (incl. varying pay, pensions, hours, shifts, holidays) · replacing an employee with a non-employee becomes automatically unfair.</p>
+          </li>
+          <li>
+            <div class="tld">2027 <span class="chip chip-ahead">Ahead</span></div>
+            <h3>Through 2027</h3>
+            <p>Bereavement leave incl. pregnancy loss before 24 weeks · zero-hours guaranteed-hours contracts and shift notice · NDAs banned in harassment/discrimination cases · tighter flexible-working refusal test · mandatory gender equality action plans · FWA starts enforcing holiday pay.</p>
+          </li>
+          <li>
+            <div class="tld">2028+ <span class="chip chip-ahead">Ahead</span></div>
+            <h3>On the horizon</h3>
+            <p>Ethnicity and disability pay gap reporting — first snapshot unlikely before April 2028, reporting from 2029. Employment status review and TUPE reform still pending.</p>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <aside>
+
+      <section class="card" aria-labelledby="rates-h">
+        <p class="eyebrow">Reference</p>
+        <h2 id="rates-h">Statutory rates 2026/27</h2>
+        <p class="sub">In force from 6 April 2026 (SMP from 5 April).</p>
+        <table class="rates">
+          <thead><tr><th scope="col">Rate</th><th scope="col">Now</th><th scope="col">Rise</th></tr></thead>
+          <tbody>
+            <tr><td>NLW · 21 and over</td><td>£12.71</td><td class="up">+4.1%</td></tr>
+            <tr><td>NMW · 18–20</td><td>£10.85</td><td class="up">+8.5%</td></tr>
+            <tr><td>NMW · 16–17 &amp; apprentice</td><td>£8.00</td><td class="up">+6.0%</td></tr>
+            <tr><td>SSP · weekly, from day one</td><td>£123.25</td><td class="par">+3.8%</td></tr>
+            <tr><td>SMP / SAP / SPP / ShPP / SPBP / SNCP</td><td>£194.32</td><td class="par">+3.8%</td></tr>
+            <tr><td>Earnings threshold (family pay)</td><td>£129/wk</td><td class="down">+3.2%</td></tr>
+            <tr><td>Protective award ceiling</td><td>180 days</td><td class="up">×2</td></tr>
+          </tbody>
+        </table>
+        <p class="rates-note">Uprating benchmark: Sept 2025 CPI, <b>3.8%</b>.<span class="sw" style="background:var(--live)"></span>beats it &nbsp;<span class="sw" style="background:var(--muted)"></span>matches &nbsp;<span class="sw" style="background:var(--soon)"></span>lags it (real-terms cut). Latest CPI: <b>2.8%</b> (May 2026; June out 22 Jul).</p>
+      </section>
+
+      <section class="card" aria-labelledby="dl-h">
+        <p class="eyebrow">Deadlines</p>
+        <h2 id="dl-h">Dates to diary</h2>
+        <ul class="dl">
+          <li><span class="dt">Carers' rights consultation closes</span><span class="dwhen">1 Sep · <span data-due="2026-09-01" data-plain="1"></span></span></li>
+          <li><span class="dt">Holiday pay consultation closes</span><span class="dwhen">22 Sep · <span data-due="2026-09-22" data-plain="1"></span></span></li>
+          <li><span class="dt">October package in force</span><span class="dwhen">1 Oct · <span data-due="2026-10-01" data-plain="1"></span></span></li>
+          <li><span class="dt">Union access regime live</span><span class="dwhen">30 Oct · <span data-due="2026-10-30" data-plain="1"></span></span></li>
+          <li><span class="dt">Fire-and-rehire ban &amp; 6-month UD</span><span class="dwhen">1 Jan 27 · <span data-due="2027-01-01" data-plain="1"></span></span></li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="case-h">
+        <p class="eyebrow">Case law watch</p>
+        <h2 id="case-h">Recent decisions</h2>
+        <ul class="cases">
+          <li><span class="cn">Cunningham v BBC</span><p>"Constructive knowledge" of disability can arise without a formal diagnosis — act on the impact you can see, not the label.</p></li>
+          <li><span class="cn">Dobson v NHS Trust</span><p>Policies that disadvantage a protected group can still be justified — but document the business need and build in flexibility.</p></li>
+          <li><span class="cn">London Ambulance Service v Garrett</span><p>A protected belief doesn't protect every statement; comments need a close nexus to the belief itself.</p></li>
+          <li><span class="cn">Court of Appeal — vicarious liability</span><p>No liability for a genuinely independent contractor's staff — keep contracts and day-to-day practice aligned.</p></li>
+          <li><span class="cn">EAT — contributory conduct</span><p>Basic awards can be cut for blameworthy pre-dismissal conduct even where it didn't cause the dismissal.</p></li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="todo-h">
+        <p class="eyebrow">Compliance</p>
+        <h2 id="todo-h">Action checklist</h2>
+        <p class="sub"><span class="check-progress" id="check-progress"></span> Ticks are saved on this device.</p>
+        <ul class="check" id="checklist">
+          <li><label><input type="checkbox" data-id="holiday-audit"><span>Audit holiday pay &amp; start six-year records<em class="why">FWA look-back runs from 18 Dec 2025 — already live</em></span></label></li>
+          <li><label><input type="checkbox" data-id="rtw"><span>Extend right-to-work checks to workers &amp; contractors<em class="why">Before 1 Oct — penalties up to £45k per person</em></span></label></li>
+          <li><label><input type="checkbox" data-id="harassment"><span>Evidence "all reasonable steps" on harassment<em class="why">Risk assessment + training; covers third parties from 1 Oct</em></span></label></li>
+          <li><label><input type="checkbox" data-id="probation"><span>Tighten probation &amp; performance management<em class="why">Six-month unfair dismissal qualifying period from 1 Jan 27</em></span></label></li>
+          <li><label><input type="checkbox" data-id="dp-complaints"><span>Stand up a data-protection complaints procedure<em class="why">30-day acknowledgement duty, in force since 19 Jun</em></span></label></li>
+          <li><label><input type="checkbox" data-id="union-access"><span>Prepare a union access-request process<em class="why">15 working days to respond, from 30 Oct (21+ staff)</em></span></label></li>
+          <li><label><input type="checkbox" data-id="family-leave"><span>Confirm day-one paternity/parental leave in policies<em class="why">Live since 6 Apr — check handbooks caught up</em></span></label></li>
+          <li><label><input type="checkbox" data-id="consultations"><span>Respond to open consultations if affected<em class="why">Carers 1 Sep · holiday pay enforcement 22 Sep</em></span></label></li>
+        </ul>
+      </section>
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>Compiled 19 July 2026 from the sources below. This brief refreshes itself every morning; the countdown chips stay live between refreshes, and a notice appears at the top if an update has been missed. General information, not legal advice.</p>
+    <div class="sources">
+      <a href="https://www.business.gov.uk/campaign/employment-changes/">GOV.UK — employment changes guidance</a> ·
+      <a href="https://www.pinsentmasons.com/out-law/guides/employment-rights-bill-timeline-2026-beyond">Pinsent Masons — ERA implementation timeline</a> ·
+      <a href="https://www.clydeco.com/en/insights/2026/07/top-5-recent-workplace-developments-july-2026">Clyde &amp; Co — July 2026 workplace developments</a> ·
+      <a href="https://www.rootshr.org.uk/blog/employment-law-bulletin-july-2026">Roots HR — July 2026 bulletin</a> ·
+      <a href="https://www.cipd.org/uk/knowledge/employment-law/legislation-updates/">CIPD — legislation timetable</a> ·
+      <a href="https://www.lra.org.uk/hours-and-pay/pay-rates-glance-april-2026-2027">LRA — pay rates at a glance 2026/27</a> ·
+      <a href="https://www.davidsonmorris.com/statutory-minimum-wage-rates-april-2026/">Davidson Morris — April 2026 statutory rates</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    // Freshness notice: warn the reader when the brief has missed its daily refresh.
+    var wrap = document.querySelector("[data-compiled]");
+    var note = document.getElementById("stale-note");
+    if (wrap && note) {
+      var compiled = new Date(wrap.getAttribute("data-compiled") + "T00:00:00");
+      var age = Math.round((now - compiled) / 86400000);
+      if (age >= 3) {
+        note.textContent = "This brief last refreshed " + age +
+          " days ago (" + compiled.toLocaleDateString("en-GB", { day: "numeric", month: "long" }) +
+          ") — it normally updates every morning, so recent developments may be missing.";
+        note.hidden = false;
+      }
+    }
+
+    // Countdown chips: elements with data-due render a live day count.
+    document.querySelectorAll("[data-due]").forEach(function (el) {
+      var due = new Date(el.getAttribute("data-due") + "T00:00:00");
+      var days = Math.round((due - now) / 86400000);
+      var txt;
+      if (days > 1) txt = "in " + days + " days";
+      else if (days === 1) txt = "tomorrow";
+      else if (days === 0) txt = "today";
+      else txt = "passed";
+      el.textContent = txt;
+      if (!el.hasAttribute("data-plain")) {
+        el.classList.remove("chip-soon", "chip-ahead", "chip-live");
+        el.classList.add(days < 0 ? "chip-live" : days <= 60 ? "chip-soon" : "chip-ahead");
+      }
+    });
+
+    // Checklist persistence (per device).
+    var KEY = "hr-digest-checklist";
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+    var boxes = document.querySelectorAll("#checklist input[type=checkbox]");
+    var progress = document.getElementById("check-progress");
+    function update() {
+      var done = 0;
+      boxes.forEach(function (b) { if (b.checked) done++; });
+      if (progress) progress.textContent = done + "/" + boxes.length + " done ·";
+    }
+    boxes.forEach(function (b) {
+      var id = b.getAttribute("data-id");
+      if (saved[id]) b.checked = true;
+      b.addEventListener("change", function () {
+        saved[id] = b.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        update();
+      });
+    });
+    update();
+  })();
+</script>
