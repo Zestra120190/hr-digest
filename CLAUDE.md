@@ -18,8 +18,9 @@ Rules for any edit:
   the primary match (near-black `#111010`, cream text `#F0E6D3`, old-gold accent `#D4874A`); LIGHT
   is a warm cream-paper counterpart (bg `#F6F1E7`, warm ink `#201B15`, bronze-gold accent
   `#A85D22`). Do not reintroduce the old petrol-teal palette. Preserve the existing colour tokens.
-- Keep the masthead credit to the LEFT of the title: a `.byline` reading "Made by / Lara Pegg /
-  hrlar.co.uk" linking to https://hrlar.co.uk. Do not remove it.
+- Keep the masthead credit to the RIGHT of the title, inline on the same baseline: a `.credit`
+  span reading "— made by Lara Pegg" where "Lara Pegg" links to https://hrlar.co.uk. Do not
+  remove it.
 - "What's moving right now": max 5 items, one sentence each plus a bold "Do:" action line.
 - Statutory rates table: Rate / Now / Rise columns, Rise colour-coded vs the CPI uprating
   benchmark (classes `up` / `par` / `down`), with the CPI note underneath.
