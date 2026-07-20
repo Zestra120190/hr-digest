@@ -1,17 +1,25 @@
 # HR Digest
 
 `index.html` is a self-contained daily briefing on UK employment law, served publicly via
-GitHub Pages from the `claude/pages` branch. Its reader is Lara — non-technical, non-lawyer,
-on Windows. A scheduled cloud routine ("HR Digest daily refresh") rewrites and pushes it every
-morning around 07:00 UK time.
+GitHub Pages from the `claude/pages` branch at the custom domain **digest.hrlar.co.uk**. Its
+reader is Lara — non-technical, non-lawyer, on Windows. A scheduled cloud routine ("HR Digest
+daily refresh") rewrites and pushes it every morning around 07:00 UK time.
 
 Rules for any edit:
 
-- The page must stay fully self-contained: all CSS/JS inline, no external requests, and keep
-  the `<meta name="robots" content="noindex">` tag.
-- Keep the design identity: petrol-teal briefing-paper style, serif "The HR Digest" masthead,
-  at-a-glance tiles, news + Employment Rights Act timeline in the main column, rates/deadlines/
-  case-law/checklist rail, light and dark themes.
+- The page must stay fully self-contained: all CSS/JS inline, no external requests (no web
+  fonts — use the local-font stacks already in the CSS variables), and keep the
+  `<meta name="robots" content="noindex">` tag.
+- Never delete the `CNAME` file (`digest.hrlar.co.uk`) — it holds the custom domain; removing it
+  breaks the live site. Only edit `index.html` on a refresh.
+- Keep the design identity: warm briefing-paper style matching hrlar.co.uk (Lara's portfolio) —
+  serif "The HR Digest" masthead, at-a-glance tiles, news + Employment Rights Act timeline in the
+  main column, rates/deadlines/case-law/checklist rail. Two themes via the CSS variables: DARK is
+  the primary match (near-black `#111010`, cream text `#F0E6D3`, old-gold accent `#D4874A`); LIGHT
+  is a warm cream-paper counterpart (bg `#F6F1E7`, warm ink `#201B15`, bronze-gold accent
+  `#A85D22`). Do not reintroduce the old petrol-teal palette. Preserve the existing colour tokens.
+- Keep the masthead credit to the LEFT of the title: a `.byline` reading "Made by / Lara Pegg /
+  hrlar.co.uk" linking to https://hrlar.co.uk. Do not remove it.
 - "What's moving right now": max 5 items, one sentence each plus a bold "Do:" action line.
 - Statutory rates table: Rate / Now / Rise columns, Rise colour-coded vs the CPI uprating
   benchmark (classes `up` / `par` / `down`), with the CPI note underneath.
