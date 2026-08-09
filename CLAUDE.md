@@ -36,6 +36,14 @@ Rules for any edit:
   obligation, not the date. Carry entries forward between refreshes and re-rate them each day;
   only drop one once it is done, superseded or no longer relevant — never because it isn't new.
 - "What's moving right now": max 5 items, one sentence each plus a bold "Do:" action line.
+- Case law rail: appellate decisions (EAT, Court of Appeal, Supreme Court) or cases with major
+  national coverage only — no routine first-instance tribunal outcomes, fact-specific awards or
+  "employee wins £X" stories. Re-apply that bar to entries carried forward, not just new ones.
+  Each entry gets a one-line practical takeaway plus a `<p class="means">` sentence led by a bold
+  "What it could change:" saying what the ruling does to the legal position — new binding
+  precedent, confirmation of what the law already was, or still open pending appeal. Say "nothing
+  yet" honestly where that's the answer; never overstate a first-instance or under-appeal ruling
+  as settled law.
 - Statutory rates table: Rate / Now / Rise columns, Rise colour-coded vs the CPI uprating
   benchmark (classes `up` / `par` / `down`), with the CPI note underneath.
 - `data-compiled` on the `.wrap` div must be today's ISO date on every refresh — it drives the
