@@ -38,8 +38,15 @@ Rules for any edit:
   needs action must also appear here. RAG colours must not clash with the rates
   `up`/`par`/`down` coding.
 - Priority-list entry `data-id` values are stable identifiers derived from the underlying
-  obligation, not the date. Carry entries forward between refreshes and re-rate them each day;
-  only drop one once it is done, superseded or no longer relevant — never because it isn't new.
+  obligation, not the date. Carry entries forward between refreshes and re-rate them each day.
+  Each `<li>` carries `data-off` (YYYY-MM-DD), the date it comes off: six months after the change
+  took effect or the ruling was handed down. Where a date isn't firm yet, use the end of the
+  stated period (e.g. 2027-12-31) and correct it once confirmed. Delete an entry once its
+  `data-off` has passed, assumed done (the page's JS also hides it on the day); otherwise only
+  drop one once it is done, superseded or no longer relevant — never because it isn't new. When a
+  slot frees up, the highest-risk item on the overflow line moves in. If something that came off
+  gets a genuinely new trigger (e.g. enforcement starts), add a new entry with a new `data-id`
+  and its own date.
 - "What's moving right now": max 5 items, one sentence each (max 30 words) plus a bold "Do:"
   action line (max 20 words).
 - Employment Rights Act timeline: a graphic, not prose. The dotted rail (`#rail`) is drawn by the
@@ -62,15 +69,16 @@ Rules for any edit:
   staleness warning banner (`#stale-note`). Update the visible masthead, "Brief compiled" and
   footer dates to match, in Europe/London time (double-check the weekday).
 - Action checklist: a rolling tick-list of what Lara should be working on now, re-checked on
-  every refresh — not a fixed list. One item per live priority-list entry, in the same order,
-  then dated changes still to come (soonest first), then consultations last; max 10 items, each
-  a short action with a one-line `.why` (max 10 words). Each `<li>` carries `data-off`
-  (YYYY-MM-DD), the date it comes off: six months after the change took effect or the ruling was
-  handed down; for the consultations item, the day after the last open closing date. Delete an
-  item once its `data-off` has passed, assumed done, even if it is unticked or a priority entry
-  on the same topic is still live (the page's JS also hides it on the day). Take an item off
-  sooner if its priority entry is done, superseded or no longer relevant. If something that came
-  off gets a genuinely new trigger (e.g. enforcement starts), add a new item with a new `data-id`.
+  every refresh — not a fixed list. At least one item per live priority-list entry, in the same
+  order, then dated changes still to come (soonest first), then consultations last; max 10 items,
+  cutting from the end of that order, each a short action with a one-line `.why` (max 10 words).
+  Each `<li>` carries `data-off` (YYYY-MM-DD), the date it comes off, matching its priority entry
+  where it has one: six months after the change took effect or the ruling was handed down; for
+  the consultations item, the day after the last open closing date. Delete an item once its
+  `data-off` has passed, assumed done, even if it is unticked (the page's JS also hides it on the
+  day). Take an item off sooner if its priority entry is done, superseded or no longer relevant.
+  If something that came off gets a genuinely new trigger (e.g. enforcement starts), add a new
+  item with a new `data-id`.
 - Checklist checkbox `data-id` values are stable identifiers (localStorage key
   `hr-digest-checklist`): never rename one or reuse a retired one, and derive new ones from the
   underlying obligation, not the date. Retired so far: holiday-audit, family-leave.
