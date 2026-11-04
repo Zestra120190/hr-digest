@@ -319,40 +319,128 @@
   .news .act b { color: var(--accent); font-weight: 700; }
 
   /* ---------- Timeline ---------- */
-  .tl { list-style: none; margin: 0; padding: 0; }
-  .tl li {
-    position: relative;
-    padding: 0 0 18px 26px;
-    border-left: 2px solid var(--line-strong);
-    margin-left: 6px;
+  .rail {
+    list-style: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    margin: 28px 0 16px;
+    padding: 0;
   }
-  .tl li:last-child { padding-bottom: 2px; }
-  .tl li::before {
+  .rail li {
+    position: relative;
+    padding-top: 24px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.35;
+    font-variant-numeric: tabular-nums;
+  }
+  .rail li::after {
     content: "";
     position: absolute;
-    left: -6px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--ahead);
-    border: 2px solid var(--surface);
+    top: 7px;
+    right: 50%;
+    width: 100%;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 11px);
   }
-  .tl li.is-live::before { background: var(--live); }
-  .tl li.is-soon::before { background: var(--soon); }
-  .tl .tld {
+  .rail li:first-child::after { display: none; }
+  .rail li.is-live::after { background: var(--live); }
+  .rail li.is-live + li:not(.is-live)::after {
+    background:
+      linear-gradient(90deg, var(--live) 50%, transparent 50%),
+      repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 11px);
+  }
+  .rail li.is-live + li:not(.is-live)::before {
+    content: "Today";
+    position: absolute;
+    top: -16px;
+    left: 0;
+    z-index: 2;
+    transform: translateX(-50%);
+    padding-bottom: 14px;
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: linear-gradient(var(--accent), var(--accent)) center bottom / 2px 12px no-repeat;
+  }
+  .rail i {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    width: 17px;
+    height: 17px;
+    margin-left: -8.5px;
+    border: 3px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--surface);
+  }
+  .rail .is-soon i { border-color: var(--soon); background: var(--soon-soft); }
+  .rail .is-live i { border-color: var(--live); background: var(--live); }
+  .rail .is-live i::after {
+    content: "✓";
+    display: block;
+    font-family: var(--sans);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 11px;
+    text-align: center;
+    color: var(--surface);
+  }
+  .rail b { display: block; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .rail span { display: block; font-size: 10.5px; color: var(--muted); }
+  @media (max-width: 520px) {
+    .rail li { padding-top: 17px; }
+    .rail b, .rail span { display: none; }
+  }
+  .stops {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  .stops > li {
+    background: var(--surface-2);
+    border-top: 3px solid var(--line-strong);
+    border-radius: 0 0 8px 8px;
+    padding: 10px 12px 12px;
+  }
+  .stops > li.is-live { border-top-color: var(--live); }
+  .stops > li.is-soon { border-top-color: var(--soon); }
+  .stops .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    margin-bottom: 3px;
+  }
+  .stops .when {
     font-family: var(--mono);
     font-size: 11.5px;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 2px;
   }
-  .tl h3 { font-size: 14.5px; font-weight: 650; margin: 0 0 2px; }
-  .tl p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .stops h3 { font-size: 14px; font-weight: 650; margin: 0 0 7px; }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; }
+  .tags li {
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 2px 7px;
+  }
 
   /* ---------- Rates table ---------- */
   .rates { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -447,6 +535,8 @@
   .sources { font-size: 12px; color: var(--muted); line-height: 1.9; }
   .sources a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--line-strong); }
   .sources a:hover { color: var(--accent); }
+  .sources summary { cursor: pointer; font-weight: 600; color: var(--ink-2); }
+  .sources[open] summary { margin-bottom: 6px; }
   footer { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
   footer p { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
 
@@ -479,12 +569,12 @@
       <div class="tile">
         <div class="k">Next milestone</div>
         <div class="v">1 Jan 2027</div>
-        <div class="s"><span class="chip chip-ahead" data-due="2027-01-01">—</span>&nbsp; Fire-and-rehire ban, 6-month unfair-dismissal threshold &amp; union right-to-join statement duty all land</div>
+        <div class="s"><span class="chip chip-ahead" data-due="2027-01-01">—</span>&nbsp; Fire-and-rehire ban, six-month unfair dismissal &amp; right-to-join statement</div>
       </div>
       <div class="tile">
         <div class="k">Open consultations</div>
         <div class="v">2</div>
-        <div class="s">Flexible working code <b>17 Dec</b> · Employment status <b>8 Jan</b> (equal pay consultation closed 27 Oct)</div>
+        <div class="s">Flexible working code <b>17 Dec</b> · Employment status <b>8 Jan</b></div>
       </div>
       <div class="tile">
         <div class="k">Unfair dismissal qualifying period</div>
@@ -505,111 +595,111 @@
       <section class="card" aria-labelledby="rag-h">
         <p class="eyebrow">Priority actions</p>
         <h2 id="rag-h">What to do about it</h2>
-        <p class="sub">Every live obligation or upcoming change, rated and re-checked daily. <span class="chip chip-crit">Red</span> do now &nbsp;<span class="chip chip-soon">Amber</span> do soon &nbsp;<span class="chip chip-live">Green</span> on the horizon.</p>
+        <p class="sub">Re-rated every morning. <span class="chip chip-crit">Red</span> do now &nbsp;<span class="chip chip-soon">Amber</span> do soon &nbsp;<span class="chip chip-live">Green</span> on the horizon.</p>
         <ul class="rag">
           <li class="is-red" data-id="rag-holiday-pay-records">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Six-year holiday pay records &amp; NMW spot-check</h3></div>
-            <p><b>What it is:</b> Employers must keep a record of every worker's hours, pay and holiday-accrual calculation going back six years — and must always be paying at least the National Minimum Wage.</p>
-            <p><b>Why it matters:</b> Failing to keep adequate records is itself a criminal offence with an unlimited fine, separate from any underpayment — and if records show holiday pay was wrong, the Fair Work Agency can charge a penalty of 200% of the underpayment (capped at £20,000 per worker, halved if paid within 14 days). The Fair Work Agency's first naming round (3 Sep) named 658 employers (B&amp;Q, Five Guys, Tesco and several NHS trusts among them) for minimum-wage underpayment, repaying £4.2m to 27,600+ workers with £7m in penalties — proof the checks are live now, not just from 2027.</p>
-            <p class="do"><b>Do now:</b> Set up (or check) a dated log per worker showing hours worked, holiday accrued and how each holiday payment was calculated, updated every pay run; also spot-check your lowest-paid, youngest and apprentice staff still clear the April 2026 rates once any deductions (uniforms, accommodation, training costs) are taken into account.</p>
-            <p class="later"><b>Then later:</b> Full internal audit before the Fair Work Agency starts actively enforcing holiday pay from 2027 — NMW enforcement also transfers fully into the Agency from April 2027, per its first delivery plan.</p>
+            <p><b>What it is:</b> Keep six years of each worker's hours, pay and holiday calculations, and always pay at least the minimum wage.</p>
+            <p><b>Why it matters:</b> Poor records are a criminal offence (unlimited fine); wrong holiday pay risks a penalty of 200% of the underpayment (capped at £20,000 per worker).</p>
+            <p class="do"><b>Do now:</b> Keep a dated log per worker of hours, holiday accrued and how it was calculated, updated every pay run. Spot-check your lowest-paid staff against April 2026 rates, after deductions.</p>
+            <p class="later"><b>Then later:</b> Full audit before the Fair Work Agency starts enforcing holiday pay in 2027.</p>
           </li>
           <li class="is-red" data-id="rag-family-leave-policies">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Day-one paternity &amp; parental leave wording</h3></div>
-            <p><b>What it is:</b> Paternity leave and unpaid parental leave became day-one rights — no minimum service required — from 6 April 2026.</p>
-            <p><b>Why it matters:</b> A handbook that still shows a qualifying period is giving staff incorrect information and could support an unfair-treatment complaint.</p>
-            <p class="do"><b>Do now:</b> Open your paternity and parental leave policy today and delete any reference to a minimum length of service.</p>
-            <p class="later"><b>Then later:</b> Roll the corrected wording into the next handbook reissue and brief managers who approve leave requests.</p>
+            <p><b>What it is:</b> Paternity and unpaid parental leave have been day-one rights since 6 April 2026.</p>
+            <p><b>Why it matters:</b> A handbook still showing a qualifying period gives staff wrong information and could support a complaint.</p>
+            <p class="do"><b>Do now:</b> Open your policy today and delete any minimum length of service.</p>
+            <p class="later"><b>Then later:</b> Update the next handbook reissue and brief managers who approve leave.</p>
           </li>
           <li class="is-red" data-id="rag-dp-complaints-procedure">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Data-protection complaints procedure</h3></div>
-            <p><b>What it is:</b> A duty to acknowledge data-subject complaints (e.g. queries about a subject access request) within 30 days, in force since 19 June 2026.</p>
-            <p><b>Why it matters:</b> Missing the 30-day acknowledgement is itself a breach, whatever happens with the underlying complaint.</p>
-            <p class="do"><b>Do now:</b> Confirm in writing who in your business receives a data complaint and that they know to send a written acknowledgement within 30 days.</p>
-            <p class="later"><b>Then later:</b> Re-confirm the process each time you update your privacy notice or data-protection policy.</p>
+            <p><b>What it is:</b> You must acknowledge data-protection complaints within 30 days, in force since 19 June 2026.</p>
+            <p><b>Why it matters:</b> Missing the 30 days is a breach in itself, whatever happens with the complaint.</p>
+            <p class="do"><b>Do now:</b> Confirm in writing who receives data complaints and that they know to acknowledge in writing within 30 days.</p>
+            <p class="later"><b>Then later:</b> Re-confirm whenever you update your privacy notice or data-protection policy.</p>
           </li>
           <li class="is-red" data-id="rag-equality-act-risk">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Harassment duty &amp; wider discrimination risk</h3></div>
-            <p><b>What it is:</b> The standing duty to take "all reasonable steps" to prevent harassment, plus a run of tribunal and EAT rulings in August on belief, health, maternity and misconduct dismissals.</p>
-            <p><b>Why it matters:</b> Employers have been penalised — tens of thousands each — for treating a protected belief's manifestation as automatic misconduct, assuming intoxication over a health condition, and letting a role lapse during maternity leave; but the EAT has also just confirmed a genuinely fair, well-evidenced dismissal won't be overturned just because a tribunal would have read the evidence differently — so process and paperwork protect you either way. Since 30 October, you're also directly liable for harassment of staff by third parties (customers, clients, contractors) unless you've taken all reasonable steps to prevent it.</p>
-            <p class="do"><b>Do now:</b> Brief managers on four rules: deal with how a belief is expressed through your normal conduct process, not the belief itself; get medical input before assuming a health explanation isn't behind an incident; give any decision affecting someone's job during leave the same documented justification as any other dismissal; and keep every dismissal decision properly evidenced and minuted so it can withstand a tribunal or an appeal. Tell managers that abusive customers or clients are now your legal problem too, not just the staff member's.</p>
-            <p class="later"><b>Then later:</b> Fold these into your next harassment risk assessment and manager training refresh.</p>
+            <p><b>What it is:</b> The duty to take "all reasonable steps" to prevent harassment, plus August rulings on belief, health, maternity and misconduct dismissals.</p>
+            <p><b>Why it matters:</b> Since 30 October you're liable for harassment by customers, clients and contractors unless you've taken those steps; recent rulings cost employers tens of thousands each.</p>
+            <p class="do"><b>Do now:</b> Brief managers: act on how a belief is expressed, not the belief; get medical input before assuming misconduct; document any job decision during leave; evidence every dismissal; abusive customers are your problem too.</p>
+            <p class="later"><b>Then later:</b> Fold this into your next harassment risk assessment and manager training.</p>
           </li>
           <li class="is-red" data-id="rag-parttime-fee-audit">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Audit flat fees &amp; benefits for part-time impact</h3></div>
-            <p><b>What it is:</b> The Supreme Court has ruled that a worker only needs to show their part-time status was "an effective cause" of unfavourable treatment, not the sole cause, to bring a Part-Time Workers Regulations claim.</p>
-            <p><b>Why it matters:</b> Any flat fee, charge, deduction or benefit rule you apply equally to full- and part-time staff is now far easier to challenge if it costs part-timers more per hour or leaves them worse off (<em>Augustine v Data Cars Ltd</em> [2026] UKSC 30, 12 Aug).</p>
-            <p class="do"><b>Do now:</b> List every fixed fee, subscription, deduction or minimum-hours benefit rule you apply the same way regardless of hours worked, and flag any that land relatively harder on your part-time staff.</p>
-            <p class="later"><b>Then later:</b> Pro-rate or objectively justify any flagged charge or benefit rule before your next pay or benefits review.</p>
+            <p><b>What it is:</b> Part-time status need only be an effective cause of worse treatment, not the sole cause (Supreme Court, 12 Aug).</p>
+            <p><b>Why it matters:</b> Flat fees, deductions or benefit rules that cost part-timers more are now far easier to challenge.</p>
+            <p class="do"><b>Do now:</b> List every fixed fee, deduction or minimum-hours benefit rule and flag any that land harder on part-time staff.</p>
+            <p class="later"><b>Then later:</b> Pro-rate or objectively justify flagged rules before your next pay or benefits review.</p>
           </li>
           <li class="is-red" data-id="rag-rtw-checks">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Right-to-work checks now cover contractors &amp; gig staff</h3></div>
-            <p><b>What it is:</b> From 1 October, right-to-work checks extend to cover workers, contractors and gig-economy staff, not just employees.</p>
-            <p><b>Why it matters:</b> The duty is now live: the final Code confirms penalties of £45k per worker for a first breach (£60k for repeats), plus a duty to check substitute workers' identities — and if a labour supplier's own checks are inadequate, that liability can pass up the chain to you as the engaging business. The Home Office's revised guidance confirms checks can be delegated to someone else in your business or to a third party, and rules out mandatory digital-verification providers or personal liability for directors; if you do use one, it must now be a registered "RtW DVSP" on the OfDIA register, specifically authorised for right-to-work checks. Existing staff already engaged before 1 October don't need retrospective checks.</p>
-            <p class="do"><b>Do now:</b> List every non-employee currently engaged (contractor, agency worker, gig staff) who hasn't yet been checked, and run those right-to-work checks now if you haven't already — this duty has been in force for over a month — keeping a simple log recording who's been checked and when. If you use a digital ID-checking provider, confirm it's listed on the OfDIA register with the right-to-work code — not just listed for other ID services.</p>
-            <p class="later"><b>Then later:</b> Document a substitute-identity check process for any future substitute workers, and build the check into your onboarding process for every new contractor or gig worker from now on.</p>
+            <p><b>What it is:</b> Since 1 October, checks also cover workers, contractors and gig staff, not just employees.</p>
+            <p><b>Why it matters:</b> Penalties: £45k per worker, £60k for repeats; a labour supplier's failures can pass to you. Existing staff engaged before 1 October need no retrospective check.</p>
+            <p class="do"><b>Do now:</b> List non-employees not yet checked, run the checks and log who and when. If you use a digital ID provider, confirm it's on the OfDIA register for right-to-work.</p>
+            <p class="later"><b>Then later:</b> Document a substitute-identity check and build checks into onboarding.</p>
           </li>
           <li class="is-red" data-id="rag-union-access">
             <div class="rag-head"><span class="chip chip-crit">Red · do now</span><h3>Union access-request process &amp; equality-rep rights</h3></div>
-            <p><b>What it is:</b> A formal right-of-access regime lets recognised unions request access to workplaces with 21+ employees; a new statutory "equality representative" role also starts, giving trained union reps a right to reasonable paid time off and employer facilities for equality-related duties.</p>
-            <p><b>Why it matters:</b> Since 30 October 2026, employers must respond to an access request within 15 working days; breaching agreed terms risks penalties up to £500k, and refusing a qualifying equality rep reasonable time off or facilities is separately enforceable at tribunal, with the burden on you to show any refusal was reasonable.</p>
-            <p class="do"><b>Do now:</b> Confirm today who in your business receives and logs a union access request, and make sure your response process can meet the 15-day clock starting now; also brief managers that a trained union equality rep can now ask for reasonable paid time off and basic facilities (meeting space, noticeboard, email access) for equality-related work.</p>
-            <p class="later"><b>Then later:</b> Log every access request received since the regime went live on 30 October, and review the process once the first few have landed.</p>
+            <p><b>What it is:</b> Recognised unions can request access to workplaces with 21+ staff; trained equality reps get reasonable paid time off and facilities.</p>
+            <p><b>Why it matters:</b> You have 15 working days to respond; breaching agreed terms risks up to £500k, and refusing an equality rep can go to tribunal.</p>
+            <p class="do"><b>Do now:</b> Confirm who receives and logs access requests, check you can meet the 15-day clock, and tell managers what equality reps can ask for.</p>
+            <p class="later"><b>Then later:</b> Log every request and review the process after the first few.</p>
           </li>
           <li class="is-amber" data-id="rag-equal-pay-market-forces">
             <div class="rag-head"><span class="chip chip-soon">Amber · do soon</span><h3>Evidence market-forces pay gaps before a claim lands</h3></div>
-            <p><b>What it is:</b> The EAT has ruled that genuine recruitment and retention pressures can lawfully justify paying one role more than a comparable role of equal value — but on the same facts still upheld most of the original finding against the employer on premium pay (<em>Next Retail Ltd &amp; Next Distribution Ltd v Thandi and others</em> [2026] EAT 130, 7 Sep).</p>
-            <p><b>Why it matters:</b> If you pay a role held mostly by one sex more than a broadly equal-value role held mostly by the other, you're exposed to an equal pay claim unless you can show, with evidence, a genuine market reason — historic practice or "that's just the rate" isn't enough, and premium payments (overtime, unsocial hours, Sunday working) aren't covered by this defence at all.</p>
-            <p class="do"><b>Do now:</b> List any roles of broadly equal value that you pay differently, and note down the actual recruitment/retention evidence behind each gap (vacancy-fill times, local pay benchmarking, staff turnover) so it exists before a claim, not after.</p>
-            <p class="later"><b>Then later:</b> Fold this evidence into your next pay review; the store workers' solicitors have said they'll appeal the basic-pay finding further, so watch for a Court of Appeal outcome that could reopen this defence.</p>
+            <p><b>What it is:</b> Genuine recruitment and retention pressures can justify paying one equal-value role more (Next v Thandi, EAT, 7 Sep).</p>
+            <p><b>Why it matters:</b> Without evidence you're exposed to a claim: "that's just the rate" isn't enough, and premium pay isn't covered.</p>
+            <p class="do"><b>Do now:</b> List equal-value roles paid differently and note the evidence behind each gap: vacancy-fill times, local pay benchmarks, turnover.</p>
+            <p class="later"><b>Then later:</b> Add this to your next pay review and watch for a Court of Appeal outcome.</p>
           </li>
         </ul>
-        <p style="font-size:12.5px; color:var(--muted); margin:12px 0 0;">Also on watch, not making the top 8 today: checking training-cost clawback clauses are enforceable since <em>Geeks Ltd v Watts</em> (Court of Appeal, 10 Jul) — no deadline, ongoing housekeeping — tightening probation review points ahead of the 1 January 2027 six-month unfair dismissal threshold (already tracked on the Action checklist), the fire-and-rehire ban (1 Jan 2027), the Bank of Baroda ruling on legacy collective agreements, Acas's new consultation on an updated flexible-working Code of Practice (opened 1 Oct, closes 17 Dec — covers the "reasonableness test" due autumn 2027, nothing to action now), the revised tipping code of practice (consultation closed 29 Sep, implementation expected by end of 2026, so nothing to action yet), the workplace monitoring technologies consultation (closed 30 Sep, now awaiting the government's response before it decides whether to legislate), the doubled employment tribunal time limit (3→6 months, live since 1 Oct — a process change for employers defending claims, not a new duty to action), the trade-union right-to-join notification duty (now delayed to 1 Jan 2027, so nothing to do yet), the new employment status consultation on bogus self-employment (opened 14 Oct, closes 8 Jan 2027, no law changed yet), the Living Wage Foundation's voluntary rate rise to £14.10/£15.45 (relevant only if you're formally accredited), the Budget-confirmed plan to restrict non-compete clauses (detail due early 2027, current law unchanged meanwhile) and the confirmed April 2027 minimum wage rates (NLW £13.21, up 3.9% — worth budgeting for, nothing due yet) — all monitor only for now.</p>
+        <p style="font-size:12.5px; color:var(--muted); margin:12px 0 0;"><b>Also on watch, monitor only:</b> probation reviews, fire-and-rehire ban &amp; right-to-join statement (1 Jan) · flexible-working code (17 Dec) · employment status (8 Jan) · tipping code (end of 2026) · non-competes (early 2027) · April 2027 wages (NLW £13.21) · training-cost clawbacks (<em>Geeks v Watts</em>) · legacy union deals (Bank of Baroda) · monitoring tech (awaiting response) · tribunal limits (6 months since 1 Oct) · Real Living Wage (accredited employers only).</p>
       </section>
 
       <section class="card" aria-labelledby="news-h">
         <p class="eyebrow">This week &amp; recent</p>
         <h2 id="news-h">What's moving right now</h2>
-        <p class="sub">Developments from the last few weeks that change what HR should be doing.</p>
+        <p class="sub">What changed in the last few weeks.</p>
         <ul class="news">
           <li>
             <span class="nd">30 Oct 26</span>
             <div>
               <h3>Union access, harassment duty &amp; equality-rep rights now in force</h3>
-              <p>The union right-of-access regime for employers with 21+ staff, the new statutory "equality representative" role, the strengthened "all reasonable steps" duty to prevent sexual harassment, and new employer liability for harassment by third parties (customers, clients, contractors) all took effect on 30 October, under the final Code of Practice and Regulations laid before Parliament earlier this year.</p>
-              <span class="act"><b>Do:</b> see the priority actions above — your union access-request process, equality-rep facilities and harassment-prevention steps need to be working now, not just drafted.</span>
+              <p>All took effect on 30 October, along with liability for harassment by customers, clients and contractors.</p>
+              <span class="act"><b>Do:</b> see the priority actions above; these need to be working now, not just drafted.</span>
             </div>
           </li>
           <li>
             <span class="nd">28 Oct 26</span>
             <div>
-              <h3>Autumn Budget: non-compete clauses to be restricted, April 2027 minimum wage rates confirmed</h3>
-              <p>The Autumn Budget confirmed the government will legislate to restrict non-compete clauses economy-wide so they stop blocking recruitment and job moves — but the detail (an outright ban, a duration cap, or a salary-based exemption) won't be set out until early 2027, so current common-law rules on non-competes are unchanged for now. The Budget also confirmed statutory minimum wage rates for April 2027, accepting the Low Pay Commission's recommendations in full: the National Living Wage (21+) rises 3.9% to £13.21/hr, NMW 18–20 to £11.27, and the 16–17/apprentice rate to £8.31. Employer National Insurance stays at 15% with the £5,000 secondary threshold frozen to 2031.</p>
-              <span class="act"><b>Do:</b> no contract changes yet on non-competes — just note which roles currently have one so you're ready once the detail lands; start budgeting payroll for the April 2027 wage rise now.</span>
+              <h3>Autumn Budget: non-competes to be restricted, April 2027 wage rates set</h3>
+              <p>Non-compete detail is due early 2027 (current law unchanged), and from April 2027 the NLW is £13.21, NMW 18–20 £11.27 and 16–17/apprentice £8.31.</p>
+              <span class="act"><b>Do:</b> note which roles have a non-compete and start budgeting for April; no contract changes yet.</span>
             </div>
           </li>
           <li>
             <span class="nd">15 Oct 26</span>
             <div>
-              <h3>Real Living Wage rises to £14.10/hr (£15.45 in London) — voluntary, not the statutory minimum</h3>
-              <p>The Living Wage Foundation raised its voluntary Real Living Wage by 65p to £14.10/hr UK-wide and to £15.45/hr in London, marking the campaign's 25th year. This is separate from the statutory National Living Wage (£12.71/hr for 21+, unchanged since April) and only binds the roughly 17,000 employers formally accredited with the Foundation; around half a million workers are expected to benefit. Accredited employers have until 1 May 2027 to implement the new rates.</p>
-              <span class="act"><b>Do:</b> no action unless you're Living Wage-accredited — if you are, start budgeting for £14.10/£15.45/hr ahead of the 1 May 2027 implementation deadline; if you're not accredited, your statutory NMW/NLW obligations are unchanged.</span>
+              <h3>Real Living Wage rises to £14.10/hr (£15.45 in London)</h3>
+              <p>This voluntary rate only binds accredited employers, who have until 1 May 2027; the statutory £12.71 is unchanged.</p>
+              <span class="act"><b>Do:</b> nothing unless you're accredited; if you are, budget for the new rates.</span>
             </div>
           </li>
           <li>
             <span class="nd">14 Oct 26</span>
             <div>
-              <h3>Government opens consultation on employment status reform (bogus self-employment)</h3>
-              <p>A 12-week "Make Work Pay" consultation on employment status opened on 14 October, closing 8 January 2027. It looks at tightening the "limb (b) worker" test (weighting control over personal service), raising penalties for employers who repeatedly misclassify staff, and giving genuinely self-employed people a right to a written statement of terms. Ministers say it covers employment rights only, not tax status, and the current three-tier status structure (employee/worker/self-employed) stays for now.</p>
-              <span class="act"><b>Do:</b> nothing to action yet — no law has changed; if you engage contractors or gig workers, keep your existing status assessments as they are and respond to the consultation by 8 Jan if you want to shape the final rules.</span>
+              <h3>Consultation opens on employment status and bogus self-employment</h3>
+              <p>It closes 8 January 2027 and covers the worker test, penalties for repeat misclassification and written terms for the self-employed; no law has changed.</p>
+              <span class="act"><b>Do:</b> nothing yet; respond by 8 Jan if you want to shape the rules.</span>
             </div>
           </li>
           <li>
             <span class="nd">1 Oct 26</span>
             <div>
-              <h3>October package now in force: tribunal time limits double, right-to-work checks expand</h3>
-              <p>Two Employment Rights Act 2025 changes took effect on 1 October. Most employment tribunal time limits (unfair dismissal, discrimination, breach of contract, detriment and whistleblowing claims) double from three to six months — but only for acts on or after that date; anything that happened wholly before 1 October still has the old three-month limit. Right-to-work checks also now extend beyond employees to contractors, agency workers and gig-economy staff, with liability able to pass up a labour supply chain. In Scotland, breach-of-contract claims keep the three-month limit a little longer, moving to six months only from 9 Nov.</p>
-              <span class="act"><b>Do:</b> no change needed for the tribunal time-limit point itself (it affects how far back a claimant can look, not what you do today); for right-to-work, see the priority action above — it needs action this week.</span>
+              <h3>October package in force: tribunal limits double, right-to-work expands</h3>
+              <p>Most tribunal time limits go from three to six months for acts on or after 1 October, and right-to-work checks now reach contractors, agency and gig staff.</p>
+              <span class="act"><b>Do:</b> run the right-to-work step above; the time-limit change needs no action today.</span>
             </div>
           </li>
         </ul>
@@ -618,54 +708,55 @@
       <section class="card" aria-labelledby="radar-h">
         <p class="eyebrow">Legislation radar</p>
         <h2 id="radar-h">Employment Rights Act 2025 — the rollout</h2>
-        <p class="sub">Royal Assent 18 Dec 2025; provisions commence in waves. Green is in force, amber is next, grey is further out.</p>
-        <ul class="tl">
+        <p class="sub">Royal Assent 18 Dec 2025; changes arrive in waves.</p>
+        <ol class="rail" id="rail" aria-hidden="true"></ol>
+        <ol class="stops" id="stops">
           <li class="is-live">
-            <div class="tld">18 FEB 2026 <span class="chip chip-live">In force</span></div>
-            <h3>Industrial action reforms</h3>
-            <p>Strike notice cut 14 → 10 days, ballot mandates extended 6 → 12 months, new protection from dismissal for industrial action.</p>
+            <div class="head"><span class="when">18 Feb 2026</span><span class="chip chip-live">In force</span></div>
+            <h3>Industrial action</h3>
+            <ul class="tags"><li>Strike notice 14 → 10 days</li><li>Ballot mandate 6 → 12 months</li><li>Dismissal protection</li></ul>
           </li>
           <li class="is-live">
-            <div class="tld">6 APR 2026 <span class="chip chip-live">In force</span></div>
-            <h3>The April package</h3>
-            <p>SSP from day one with the lower earnings limit removed · day-one paternity &amp; unpaid parental leave · collective-redundancy protective award doubled to 180 days' pay · six-year holiday pay record-keeping duty · Fair Work Agency established · whistleblowing protections widened.</p>
+            <div class="head"><span class="when">6 Apr 2026</span><span class="chip chip-live">In force</span></div>
+            <h3>April package</h3>
+            <ul class="tags"><li>SSP from day one</li><li>Day-one paternity &amp; parental leave</li><li>Protective award 180 days</li><li>Six-year holiday records</li><li>Fair Work Agency</li><li>Wider whistleblowing</li></ul>
           </li>
           <li class="is-live">
-            <div class="tld">25 AUG 2026 <span class="chip chip-live">In force</span></div>
+            <div class="head"><span class="when">25 Aug 2026</span><span class="chip chip-live">In force</span></div>
             <h3>Electronic balloting</h3>
-            <p>E-voting and hybrid/workplace voting are now live for industrial action, political fund and union election/merger ballots, on a voluntary basis agreed between union and employer — six days earlier than the 31 August originally trailed. Repeal of the 50% turnout threshold expected (timing tbc); recognition/derecognition ballots follow in 2027.</p>
+            <ul class="tags"><li>E-voting &amp; hybrid ballots</li><li>Turnout threshold repeal: tbc</li><li>Recognition ballots: 2027</li></ul>
           </li>
           <li class="is-live">
-            <div class="tld">1 OCT 2026 <span class="chip chip-live">In force</span></div>
-            <h3>The October package</h3>
-            <p>Tribunal time limits 3 → 6 months · expanded right-to-work checks. In Scotland, breach-of-contract claims keep the old 3-month limit a little longer, moving to 6 months only from 9 Nov (a separate Scottish Ministers order). Combined with the 12-week Acas Early Conciliation window (live since Dec 2025; government reviews whether it stays at 12 weeks in October 2026), some claims could reach nine months start-to-finish.</p>
+            <div class="head"><span class="when">1 Oct 2026</span><span class="chip chip-live">In force</span></div>
+            <h3>October package</h3>
+            <ul class="tags"><li>Tribunal limits 3 → 6 months</li><li>Right-to-work extended</li><li>Scottish contract claims: 9 Nov</li></ul>
           </li>
           <li class="is-live">
-            <div class="tld">30 OCT 2026 <span class="chip chip-live">In force</span></div>
-            <h3>Union access rights &amp; harassment duty</h3>
-            <p>Access regime live for employers with 21+ employees; agreed-terms breaches attract penalties up to £500k. A new statutory union "equality representative" role also starts, with a right to reasonable paid time off and facilities for equality-related duties, enforceable at tribunal. Also from this date (delayed from 1 Oct): the "all reasonable steps" duty to prevent sexual harassment, liability for third-party harassment, and a new right not to suffer detriment for taking industrial action — deducting strike-day pay stays lawful, but a detriment failure now joins the list for a 25% Acas uplift.</p>
+            <div class="head"><span class="when">30 Oct 2026</span><span class="chip chip-live">In force</span></div>
+            <h3>Union access &amp; harassment</h3>
+            <ul class="tags"><li>Union access (21+ staff)</li><li>Equality reps</li><li>"All reasonable steps" duty</li><li>Third-party harassment</li><li>Strike detriment protection</li></ul>
           </li>
-          <li>
-            <div class="tld">LATE 2026 <span class="chip chip-ahead">Ahead</span></div>
+          <li class="is-soon">
+            <div class="head"><span class="when">Late 2026</span><span class="chip chip-soon">Next</span></div>
             <h3>Autumn stragglers</h3>
-            <p>Fair pay agreement process launches in adult social care; tipping reforms rescheduled from October to end of 2026; Mandatory Seafarers' Charter targeted for December (NMW-equivalent pay and rest for cross-Channel crew).</p>
+            <ul class="tags"><li>Tipping reforms</li><li>Social care pay agreements</li><li>Seafarers' Charter (Dec)</li></ul>
           </li>
-          <li>
-            <div class="tld">1 JAN 2027 <span class="chip chip-ahead">Ahead</span></div>
+          <li class="is-soon">
+            <div class="head"><span class="when">1 Jan 2027</span><span class="chip chip-soon" data-due="2027-01-01">—</span></div>
             <h3>The January cliff</h3>
-            <p>Unfair dismissal qualifying period drops to six months and the compensatory cap goes · fire-and-rehire becomes automatically unfair (incl. varying pay, pensions, hours, shifts, holidays) · replacing an employee with a non-employee becomes automatically unfair · new "organisation-wide" collective-redundancy consultation threshold (pushed back from Oct 2026) · workers must now be given a written statement of their right to join a trade union (delayed from 30 Oct 2026).</p>
+            <ul class="tags"><li>Unfair dismissal 2 yrs → 6 months</li><li>Compensation cap goes</li><li>Fire-and-rehire ban</li><li>Replacing employees with non-employees: unfair</li><li>Organisation-wide redundancy threshold</li><li>Right-to-join statement</li></ul>
           </li>
           <li>
-            <div class="tld">2027 <span class="chip chip-ahead">Ahead</span></div>
+            <div class="head"><span class="when">2027</span><span class="chip chip-ahead">Ahead</span></div>
             <h3>Through 2027</h3>
-            <p>Bereavement leave incl. pregnancy loss before 24 weeks · zero-hours guaranteed-hours contracts and shift notice · NDAs banned in harassment/discrimination cases · flexible-working "reasonableness test" &amp; pre-refusal meeting duty, regs due autumn 2027 (government response confirmed 17 Sep) · mandatory gender equality action plans · FWA starts enforcing holiday pay.</p>
+            <ul class="tags"><li>Bereavement leave</li><li>Guaranteed hours &amp; shift notice</li><li>Harassment &amp; discrimination NDA ban</li><li>Flexible-working test (autumn)</li><li>Gender equality action plans</li><li>FWA enforces holiday pay</li></ul>
           </li>
           <li>
-            <div class="tld">2028+ <span class="chip chip-ahead">Ahead</span></div>
+            <div class="head"><span class="when">2028+</span><span class="chip chip-ahead">Ahead</span></div>
             <h3>On the horizon</h3>
-            <p>Ethnicity and disability pay gap reporting — first snapshot unlikely before April 2028, reporting from 2029. Employment status review and TUPE reform still pending.</p>
+            <ul class="tags"><li>Ethnicity &amp; disability pay gaps (2029)</li><li>Employment status review</li><li>TUPE reform</li></ul>
           </li>
-        </ul>
+        </ol>
       </section>
 
     </main>
@@ -688,7 +779,7 @@
             <tr><td>Protective award ceiling</td><td>180 days</td><td class="up">×2</td></tr>
           </tbody>
         </table>
-        <p class="rates-note">Uprating benchmark: Sept 2025 CPI, <b>3.8%</b>.<span class="sw" style="background:var(--live)"></span>beats it &nbsp;<span class="sw" style="background:var(--muted)"></span>matches &nbsp;<span class="sw" style="background:var(--soon)"></span>lags it (real-terms cut). Latest published CPI: <b>3.5%</b> (September 2026, up from 3.1% in August, ONS release 21 Oct) — still running below the benchmark set for the April 2026 uprating, but the gap has narrowed further still.</p>
+        <p class="rates-note">Benchmark: Sept 2025 CPI, <b>3.8%</b>.<span class="sw" style="background:var(--live)"></span>beats it &nbsp;<span class="sw" style="background:var(--muted)"></span>matches &nbsp;<span class="sw" style="background:var(--soon)"></span>lags it (real-terms cut). Latest CPI: <b>3.5%</b> (September 2026).</p>
       </section>
 
       <section class="card" aria-labelledby="dl-h">
@@ -705,30 +796,32 @@
         <p class="eyebrow">Case law watch</p>
         <h2 id="case-h">Recent decisions</h2>
         <ul class="cases">
-          <li><span class="cn">Next Retail Ltd &amp; Next Distribution Ltd v Thandi and others</span><p>Employment Appeal Tribunal [2026] EAT 130 (7 Sep): allowed Next's appeal on basic pay, ruling the original tribunal was wrong to find no legitimate aim — recruitment and retention pressures specific to warehouse roles justified paying warehouse staff a higher basic rate than the mostly-female store staff. But the EAT rejected Next's other challenges (night pay, overtime, paid rest breaks) and sent the Sunday-premium question back to a fresh tribunal, so most of the original 2024 finding for the ~3,500 claimants stands.</p><p class="means"><b>What it could change:</b> Only partly, and not yet finally. The basic-pay ruling is a live win for employers who can evidence genuine market/recruitment reasons for a role-based pay gap — but it doesn't touch the premium-pay awards Next lost on, and the store workers' solicitors, Leigh Day, say they'll appeal the basic-pay point further. Treat it as a useful, currently-good defence to start evidencing now, not as the last word.</p></li>
-          <li><span class="cn">McManus v British Airways plc</span><p>Employment Appeal Tribunal [2026] EAT 155 (hearing 22 Sep, reported since 22 Oct): dismissed a cabin crew member's appeal over a remark about Access to Work support, but confirmed — following <em>Harkins v Marks and Spencer plc</em> [2026] EAT 131 — that a claimant's known mental ill-health (she was accepted to be disabled by depression, anxiety and social phobia) is relevant to whether a remark had a harassing "effect" under the Equality Act, even though that doesn't automatically make the remark unlawful.</p><p class="means"><b>What it could change:</b> Nothing new in principle — this confirms the existing test for harassment "effect" rather than setting a stricter one, now read alongside Harkins on factoring in a claimant's mental health. The practical point: before dismissing a complaint about how a remark landed, check what you knew (or should have known) about the person's mental health and address that directly, rather than judging the remark in isolation.</p></li>
-          <li><span class="cn">Augustine v Data Cars Ltd</span><p>Supreme Court [2026] UKSC 30 (12 Aug): allowed a part-time driver's appeal, holding that a worker's part-time status only needs to be an effective cause of less favourable treatment under the Part-Time Workers Regulations, not the sole cause — overturning the Employment Tribunal, EAT and Court of Appeal, who had all applied a stricter "sole cause" test to his claim over a flat weekly "circuit fee" that cost part-timers more per hour worked.</p><p class="means"><b>What it could change:</b> This sets new binding precedent every tribunal must now follow: claims over fees, charges or benefit rules that fall harder on part-time staff are significantly easier to bring. It doesn't outlaw flat fees or charges outright — an employer can still defend one with a genuine, objectively justified business reason — but "cost wasn't the only reason" is no longer a defence on its own.</p></li>
-          <li><span class="cn">Fieldfisher LLP v Rustambekov</span><p>Employment Appeal Tribunal [2026] EAT 99: set aside a tribunal's finding that Fieldfisher unfairly dismissed a senior associate over sexual harassment and misconduct allegations, ruling the tribunal wrongly substituted its own assessment of the evidence for the firm's reasonable conclusions. Remitted to a differently constituted tribunal to rehear.</p><p class="means"><b>What it could change:</b> Nothing new — this applies the existing, well-established rule that a tribunal must ask whether dismissal fell within the band of reasonable responses open to the employer, not re-decide the facts itself. It's not a looser standard for employers and it doesn't decide whether the original dismissal was fair — that question goes back to a fresh tribunal. The practical takeaway is about process: a properly conducted, well-evidenced investigation is harder for a tribunal to overturn on appeal.</p></li>
-          <li><span class="cn">Wolfe v Taka Mayfair Ltd</span><p>Employment Appeal Tribunal [2026] EAT 106 (22 Jul, widely reported through September): dismissed a sommelier's appeal, confirming the statutory right to be accompanied at a disciplinary or grievance hearing only arises once the worker actually asks for a companion under s.10 Employment Relations Act 1999 — even where the employer gave no warning of the meeting's purpose and the worker had no real chance to realise they should ask. Mr Wolfe was called into an unannounced meeting and dismissed on the spot.</p><p class="means"><b>What it could change:</b> Nothing yet — this confirms the existing wording of the 1999 Act rather than creating a new rule. The practical risk it exposes is different: a failure to warn someone what a meeting is about, and that they may bring a companion, can still count against you on ordinary unfair-dismissal grounds even though it defeats a stand-alone right-to-be-accompanied claim — so always give that notice rather than relying on the technical position.</p></li>
-          <li><span class="cn">University of Bristol v Miller</span><p>Employment Appeal Tribunal [2026] EAT 84: rejected eight of the university's nine grounds of appeal against 2024's finding that Professor David Miller's anti-Zionist beliefs are protected under the Equality Act 2010 and that dismissing him over comments manifesting that belief was direct discrimination and unfair dismissal; Miller's own cross-appeal against the 50% cut to his award for contributory fault also failed. But the EAT allowed the university's ninth ground, setting aside the tribunal's finding of only a 30% chance he'd have been fairly dismissed anyway over later (Aug 2023) social media posts, and sent that point back to the tribunal to reconsider at the remedy hearing.</p><p class="means"><b>What it could change:</b> The liability finding is now settled at appeal level, so tribunals must follow it: a belief doesn't lose Equality Act protection just because it attracts complaints or bad publicity, and controversy alone doesn't justify dismissal. But Miller's final compensation isn't settled — the remitted point could still raise the "chance he'd have been dismissed anyway" finding and cut his award further, so treat the liability principle as fixed but the money as still open.</p></li>
-          <li><span class="cn">Geeks Ltd v Watts</span><p>Court of Appeal [2026] EWCA Civ 889 (10 Jul, widely reported since): dismissed Geeks' appeal, upholding that its training-fee clawback clause — repaying a declining share of an £8,108 estimated training cost if the employee left within three years of starting — was an unenforceable restraint of trade. The mentoring-cost component was charged at roughly five to six times what the mentor was actually paid, and Mr Watts had no independent legal advice and little bargaining power when he signed it.</p><p class="means"><b>What it could change:</b> This sets new binding precedent: courts and tribunals must now look at a clawback clause's real financial effect on an employee's freedom to leave, not just whether it's labelled a loan or a debt, and will strike one down if it goes wider than reasonably necessary to protect a genuine training-cost interest. It doesn't ban cost-recovery clauses outright — a tightly drawn clause tied to real costs, with a fair taper and a chance to take advice, can still hold up — but it raises the bar on drafting.</p></li>
-          <li><span class="cn">Peggie v NHS Fife Health Board &amp; Dr Beth Upton</span><p>Employment Appeal Tribunal: permission granted (30 Jul) for a full appeal on 13 of 14 grounds against December 2025's partial ruling (harassment upheld; discrimination and victimisation claims dismissed) over shared changing-room use with a transgender doctor; Peggie is separately seeking a Rule 3(10) hearing on the one ground refused. Full hearing expected first half of 2027. Treat the underlying findings as still contested.</p><p class="means"><b>What it could change:</b> Nothing yet — but the December 2025 ruling is the one currently being read as allowing employers to keep single-sex facilities open to people who don't share that biological sex. The 2027 appeal will decide whether that reading stands, so any changing-room or facilities policy you write now should be easy to revise rather than built on that judgment.</p></li>
+          <li><span class="cn">Next Retail &amp; Next Distribution v Thandi</span><p>[2026] EAT 130, 7 Sep. Market pressures justified higher warehouse basic pay, but most of the finding for about 3,500 claimants stands.</p><p class="means"><b>What it could change:</b> Only partly: a usable defence on basic pay if you have evidence, not on premium pay, and the claimants plan to appeal.</p></li>
+          <li><span class="cn">McManus v British Airways</span><p>[2026] EAT 155. Appeal dismissed, but known mental ill-health is relevant to whether a remark had a harassing effect.</p><p class="means"><b>What it could change:</b> Nothing new in principle: check what you knew about someone's mental health before dismissing a complaint about a remark.</p></li>
+          <li><span class="cn">Augustine v Data Cars</span><p>[2026] UKSC 30, 12 Aug. Part-time status need only be an effective cause of worse treatment, not the sole cause.</p><p class="means"><b>What it could change:</b> New binding precedent: claims over flat fees and benefit rules are easier to bring, though objective justification remains a defence.</p></li>
+          <li><span class="cn">Fieldfisher v Rustambekov</span><p>[2026] EAT 99. The tribunal wrongly replaced the firm's reasonable conclusions with its own; sent back for a rehearing.</p><p class="means"><b>What it could change:</b> Nothing new: it confirms the band of reasonable responses test, and whether this dismissal was fair goes back to a fresh tribunal.</p></li>
+          <li><span class="cn">Wolfe v Taka Mayfair</span><p>[2026] EAT 106, 22 Jul. The right to be accompanied only arises once the worker asks for a companion.</p><p class="means"><b>What it could change:</b> Nothing yet: it confirms the 1999 Act, but failing to explain a meeting's purpose can still count against you on unfair dismissal.</p></li>
+          <li><span class="cn">University of Bristol v Miller</span><p>[2026] EAT 84. Anti-Zionist belief is protected and the dismissal was discriminatory; eight of the university's nine grounds failed.</p><p class="means"><b>What it could change:</b> Liability is settled at appeal level, so controversy alone doesn't justify dismissal, but the compensation is still open.</p></li>
+          <li><span class="cn">Geeks v Watts</span><p>[2026] EWCA Civ 889, 10 Jul. An £8,108 training clawback was an unenforceable restraint of trade.</p><p class="means"><b>What it could change:</b> New binding precedent: courts look at a clawback's real effect on leaving, though tightly drawn clauses tied to real costs can still hold.</p></li>
+          <li><span class="cn">Peggie v NHS Fife &amp; Dr Upton</span><p>EAT permission granted 30 Jul on 13 of 14 grounds; full hearing expected in the first half of 2027.</p><p class="means"><b>What it could change:</b> Nothing yet: keep any changing-room policy easy to revise, because the December 2025 ruling is still contested.</p></li>
         </ul>
       </section>
 
       <section class="card" aria-labelledby="todo-h">
         <p class="eyebrow">Compliance</p>
         <h2 id="todo-h">Action checklist</h2>
-        <p class="sub"><span class="check-progress" id="check-progress"></span> Ticks are saved on this device.</p>
+        <p class="sub"><span class="check-progress" id="check-progress"></span> New actions come on; anything six months past its start date drops off, assumed done. Ticks are saved on this device.</p>
         <ul class="check" id="checklist">
-          <li><label><input type="checkbox" data-id="holiday-audit"><span>Audit holiday pay &amp; start six-year records<em class="why">FWA look-back runs from 18 Dec 2025 — already live</em></span></label></li>
-          <li><label><input type="checkbox" data-id="rtw"><span>Extend right-to-work checks to workers, contractors &amp; gig staff<em class="why">Now in force from 1 Oct — tiered penalties: £45k per worker first breach, £60k for repeats, plus a substitute-identity check duty</em></span></label></li>
-          <li><label><input type="checkbox" data-id="harassment"><span>Evidence "all reasonable steps" on harassment<em class="why">Risk assessment + training; covers third parties from 30 Oct (delayed from 1 Oct)</em></span></label></li>
-          <li><label><input type="checkbox" data-id="probation"><span>Tighten probation &amp; performance management<em class="why">Six-month unfair dismissal qualifying period from 1 Jan 27</em></span></label></li>
-          <li><label><input type="checkbox" data-id="dp-complaints"><span>Stand up a data-protection complaints procedure<em class="why">30-day acknowledgement duty, in force since 19 Jun</em></span></label></li>
-          <li><label><input type="checkbox" data-id="union-access"><span>Prepare a union access-request process<em class="why">15 working days to respond, from 30 Oct (21+ staff); equality reps also gain paid time-off &amp; facilities rights</em></span></label></li>
-          <li><label><input type="checkbox" data-id="family-leave"><span>Confirm day-one paternity/parental leave in policies<em class="why">Live since 6 Apr — check handbooks caught up</em></span></label></li>
-          <li><label><input type="checkbox" data-id="consultations"><span>Respond to open consultations if affected<em class="why">Equal pay consultation closed 27 Oct (awaiting government response) · Acas flexible working code closes 17 Dec · employment status closes 8 Jan 27</em></span></label></li>
+          <li data-off="2026-12-19"><label><input type="checkbox" data-id="dp-complaints"><span>Stand up a data-protection complaints procedure<em class="why">30-day acknowledgement, since 19 Jun</em></span></label></li>
+          <li data-off="2027-04-30"><label><input type="checkbox" data-id="harassment"><span>Evidence "all reasonable steps" on harassment<em class="why">Risk assessment + training; third parties since 30 Oct</em></span></label></li>
+          <li data-off="2027-02-12"><label><input type="checkbox" data-id="part-time-fees"><span>Audit flat fees &amp; benefits for part-time impact<em class="why">Supreme Court ruling, 12 Aug</em></span></label></li>
+          <li data-off="2027-04-01"><label><input type="checkbox" data-id="rtw"><span>Extend right-to-work checks to workers, contractors &amp; gig staff<em class="why">Since 1 Oct; £45k per worker, £60k for repeats</em></span></label></li>
+          <li data-off="2027-04-30"><label><input type="checkbox" data-id="union-access"><span>Prepare a union access-request process<em class="why">15 working days to respond, since 30 Oct (21+ staff)</em></span></label></li>
+          <li data-off="2027-03-07"><label><input type="checkbox" data-id="equal-pay-evidence"><span>Evidence pay gaps between equal-value roles<em class="why">EAT ruling, 7 Sep</em></span></label></li>
+          <li data-off="2027-07-01"><label><input type="checkbox" data-id="probation"><span>Tighten probation &amp; performance management<em class="why">Six-month unfair dismissal from 1 Jan 27</em></span></label></li>
+          <li data-off="2027-07-01"><label><input type="checkbox" data-id="fire-and-rehire"><span>Check planned contract changes against the fire-and-rehire ban<em class="why">Automatically unfair from 1 Jan 27</em></span></label></li>
+          <li data-off="2027-07-01"><label><input type="checkbox" data-id="right-to-join"><span>Prepare the written right-to-join-a-union statement<em class="why">Due to workers from 1 Jan 27</em></span></label></li>
+          <li data-off="2027-01-09"><label><input type="checkbox" data-id="consultations"><span>Respond to open consultations if affected<em class="why">Flexible working 17 Dec · employment status 8 Jan 27</em></span></label></li>
         </ul>
       </section>
 
@@ -736,8 +829,9 @@
   </div>
 
   <footer>
-    <p>Compiled 4 November 2026 from the sources below. This brief refreshes itself every morning; the countdown chips stay live between refreshes, and a notice appears at the top if an update has been missed. General information, not legal advice.</p>
-    <div class="sources">
+    <p>Compiled 4 November 2026 from the sources below. Refreshes every morning; a notice appears at the top if an update is missed. General information, not legal advice.</p>
+    <details class="sources">
+      <summary>Sources used for this brief</summary>
       <a href="https://www.gov.uk/government/publications/implementing-the-plan-to-make-work-pay-and-employment-rights-act/plan-to-make-work-pay-and-employment-rights-act-timeline-update">GOV.UK — Plan to Make Work Pay &amp; ERA timeline update (16 Jul)</a> ·
       <a href="https://www.gov.uk/government/consultations/make-work-pay-improving-access-to-flexible-working">GOV.UK — Make Work Pay: flexible working consultation &amp; government response (17 Sep)</a> ·
       <a href="https://www.personneltoday.com/hr/flexible-working-decision-meeting/">Personnel Today — managers must hold a meeting to explain flexible-working decisions</a> ·
@@ -817,7 +911,7 @@
       <a href="https://assets.publishing.service.gov.uk/media/6ac8abd3f1ba855cc196a9bf/Mrs_T_McManus_v_British_Airways_plc__2026__EAT_155.pdf">GOV.UK — Mrs T McManus v British Airways plc: [2026] EAT 155, judgment</a> ·
       <a href="https://www.vwv.co.uk/insights/articles/the-eat-confirms-that-an-employees-mental-ill-health-is-relevant-to-a-harassment-claim-but-does-not-automatically-make-a-remark-unlawful/">VWV — EAT confirms an employee's mental ill-health is relevant to a harassment claim but doesn't automatically make a remark unlawful</a> ·
       <a href="https://gateleyplc.com/insight/article/employment-rights-act-update-government-confirms-january-2027-start-date-for-new-trade-union-information-duty/">Gateley — government confirms January 2027 start date for the trade-union right-to-join information duty</a>
-    </div>
+    </details>
   </footer>
 
 </div>
@@ -856,6 +950,26 @@
         el.classList.add(days < 0 ? "chip-live" : days <= 60 ? "chip-soon" : "chip-ahead");
       }
     });
+
+    // Rolling checklist: an item comes off on its data-off date, even between refreshes.
+    document.querySelectorAll("#checklist li[data-off]").forEach(function (li) {
+      if (new Date(li.getAttribute("data-off") + "T00:00:00") <= now) li.remove();
+    });
+
+    // Rollout rail: one dot per stop, coloured by that stop's status.
+    var rail = document.getElementById("rail");
+    if (rail) {
+      document.querySelectorAll("#stops > li").forEach(function (stop) {
+        var when = stop.querySelector(".when");
+        if (!when) return;
+        var parts = when.textContent.trim().split(" ");
+        var year = parts.length > 1 ? parts.pop() : "";
+        var dot = document.createElement("li");
+        dot.className = stop.className;
+        dot.innerHTML = "<i></i><b>" + parts.join(" ") + "</b><span>" + year + "</span>";
+        rail.appendChild(dot);
+      });
+    }
 
     // Checklist persistence (per device).
     var KEY = "hr-digest-checklist";
