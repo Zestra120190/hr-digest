@@ -1,6 +1,6 @@
 # HR Digest
 
-`index.html` is a self-contained daily briefing on UK employment law, served publicly via
+`index.html` is a self-contained daily briefing on employment law in Great Britain, served publicly via
 GitHub Pages from the `claude/pages` branch at the custom domain **digest.hrlar.co.uk**. Its
 reader is Lara — non-technical, non-lawyer, on Windows. A scheduled cloud routine ("HR Digest
 daily refresh") rewrites and pushes it every morning at 06:03 UTC (06:03 UK time in winter,
@@ -22,6 +22,10 @@ Rules for any edit:
   or tribunal judgment) wherever one exists. Only cite a page you have opened and read; a search
   snippet or a search tool's summary is a lead, not a source. If nothing you can open confirms
   a fact, leave it out.
+- Keep the trust notices exactly as they are: the masthead `.notice` line (compiled by AI, check
+  the source before acting, covers Great Britain only), the date block's "Great Britain" label
+  and the footer `.disclaimer`. Coverage is Great Britain: leave out Northern Ireland-only
+  changes, since Northern Ireland has its own employment law.
 - The page must stay fully self-contained: all CSS/JS inline, no external requests (no web
   fonts — use the local-font stacks already in the CSS variables). The page is public and
   search-indexable — do NOT add a `robots noindex` tag.
@@ -40,7 +44,7 @@ Rules for any edit:
   remove it.
 - Keep it short: Lara finds long text hard going. The word limits below are hard limits and
   apply to carried-forward text too. When adding a fact, cut another rather than lengthening an
-  entry. Keep the page under 2,500 words, excluding the sources.
+  entry. Keep the page under 2,500 words, excluding the sources and the footer disclaimer.
 - Before every push, run `python3 tools/check.py` from the repo root (add `--links` when the
   network allows; otherwise open any new link with WebFetch). It checks dates, expiry, limits,
   sources and the rules below. Fix every FAIL and re-run; never push a page that fails. Never

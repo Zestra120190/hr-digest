@@ -333,7 +333,7 @@ def run(html, today, repo, rep):
             rep.fail(f"insecure link: {a.attrs['href']}")
 
     # ---- page-wide rules
-    no_sources = re.sub(r'(?s)<details class="sources">.*?</details>', " ", html)
+    no_sources = re.sub(r'(?s)<details class="sources">.*?</details>|<p class="disclaimer">.*?</p>', " ", html)
     no_code = re.sub(r"(?is)<(style|script)[^>]*>.*?</\1>", " ", no_sources)
     total = words(re.sub(r"(?s)<[^>]+>", " ", no_code))
     if total >= PAGE_WORD_LIMIT:
@@ -342,6 +342,14 @@ def run(html, today, repo, rep):
         rep.fail("page loads an external resource — keep everything inline")
     if re.search(r"noindex", html, re.I):
         rep.fail("page contains 'noindex' — it must stay search-indexable")
+    notice = root.first(has_class("notice"))
+    if not notice or "AI" not in notice.text() or "Northern Ireland" not in notice.text():
+        rep.fail("masthead notice (compiled by AI, check the source, Great Britain only) is missing — put it back")
+    if block and "Great Britain" not in block.text():
+        rep.fail("masthead date block should say 'Great Britain' — Northern Ireland law differs")
+    disclaimer = root.first(has_class("disclaimer"))
+    if not disclaimer or "not legal advice" not in disclaimer.text():
+        rep.fail("footer disclaimer is missing — put it back")
     credit = root.first(has_class("credit"))
     if not credit or "made by" not in credit.text() or not credit.first(lambda n: n.tag == "a" and n.attrs.get("href", "").rstrip("/") == "https://hrlar.co.uk"):
         rep.fail("masthead credit '— made by Lara Pegg' linking to https://hrlar.co.uk is missing")
