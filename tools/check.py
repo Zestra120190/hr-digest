@@ -358,18 +358,30 @@ def ancestors(n):
         yield n
 
 
+def probe(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (HR Digest link check)"})
+    try:
+        with urllib.request.urlopen(req, timeout=12) as r:
+            return url, r.status, None
+    except urllib.error.HTTPError as e:
+        return url, e.code, None
+    except Exception as e:
+        return url, None, type(e).__name__
+
+
 def check_links(urls, rep):
-    for url in sorted(set(urls)):
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (HR Digest link check)"})
-        try:
-            with urllib.request.urlopen(req, timeout=20) as r:
-                code = r.status
-        except urllib.error.HTTPError as e:
-            code = e.code
-        except Exception as e:
-            rep.warn(f"couldn't reach {url} ({type(e).__name__}) — confirm it with WebFetch")
-            continue
-        if code in (401, 403, 429):
+    from concurrent.futures import ThreadPoolExecutor
+
+    urls = sorted(set(urls))
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(probe, urls))
+    if urls and all(code is None for _, code, _ in results):
+        rep.warn("no link could be reached — the network looks blocked; open any new link with WebFetch instead")
+        return
+    for url, code, err in results:
+        if code is None:
+            rep.warn(f"couldn't reach {url} ({err}) — confirm it with WebFetch")
+        elif code in (401, 403, 429):
             rep.warn(f"{url} answered {code} (bot-blocked?) — confirm it opens with WebFetch")
         elif code >= 400:
             rep.fail(f"dead link ({code}): {url}")
