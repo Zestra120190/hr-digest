@@ -26,7 +26,8 @@ Rules for any edit:
   fonts — use the local-font stacks already in the CSS variables). The page is public and
   search-indexable — do NOT add a `robots noindex` tag.
 - Never delete the `CNAME` file (`digest.hrlar.co.uk`) — it holds the custom domain; removing it
-  breaks the live site. Only edit `index.html` on a refresh.
+  breaks the live site. Never delete `_config.yml` either — it keeps this file and `tools/` off
+  the public site. Only edit `index.html` on a refresh.
 - Keep the design identity: warm briefing-paper style matching hrlar.co.uk (Lara's portfolio) —
   serif "The HR Digest" masthead, at-a-glance tiles, priority list + news + Employment Rights Act
   timeline in the main column, rates/deadlines/case-law/checklist rail. Two themes via the CSS

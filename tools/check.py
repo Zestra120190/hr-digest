@@ -348,6 +348,9 @@ def run(html, today, repo, rep):
     cname = repo / "CNAME"
     if not cname.exists() or cname.read_text().strip() != "digest.hrlar.co.uk":
         rep.fail("CNAME file is missing or doesn't say digest.hrlar.co.uk — the live site depends on it")
+    config = repo / "_config.yml"
+    if not config.exists() or "CLAUDE.md" not in config.read_text():
+        rep.warn("_config.yml is missing or no longer excludes CLAUDE.md — the rules file will be public on the site")
 
     return [a.attrs["href"] for a in root.all(lambda n: n.tag == "a" and n.attrs.get("href", "").startswith("http"))], total
 

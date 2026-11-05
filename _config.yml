@@ -1,0 +1,4 @@
+# GitHub Pages settings. Keeps the working files in the repo but off the public site.
+exclude:
+  - CLAUDE.md
+  - tools
