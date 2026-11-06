@@ -94,12 +94,17 @@ Rules for any edit:
   already was, or still open pending appeal. Say "nothing yet" honestly where that's the answer;
   never overstate a first-instance or under-appeal ruling as settled law.
 - Statutory rates table: Rate / Now / Rise columns, Rise colour-coded vs the CPI uprating
-  benchmark (classes `up` / `par` / `down`), with the CPI note underneath. The rates card and
-  the NLW tile carry `data-stale-after`: the date the next rates take effect (now 2027-04-01);
-  after it the page flags them "May be out of date". Each April, switch to the new rates once in
-  force (NLW/NMW 1 April, SSP 6 April, SMP and family pay from the first Sunday in April),
-  verified on GOV.UK, benchmark them against the previous September's CPI, and move
-  `data-stale-after` on a year.
+  benchmark (classes `up` / `par` / `down`), with the CPI note underneath. Take every rate only
+  from GOV.UK, never from memory or a news story: the minimum wage page
+  (https://www.gov.uk/national-minimum-wage-rates) and HMRC's "Rates and thresholds for
+  employers" guide for the tax year
+  (https://www.gov.uk/guidance/rates-and-thresholds-for-employers-YYYY-to-YYYY), linked from the
+  card's `Source ↗` links. Show each rate from the date GOV.UK gives for it (minimum wage
+  1 April, sick pay 6 April, maternity and family pay the first Sunday in April), with its rise
+  measured against the previous September's CPI. The rates card and the NLW tile carry
+  `data-stale-after`: the next date any rate on the card changes (1 April until the next rates
+  are published). From that date the page flags them "May be out of date" and the check fails
+  until they're updated.
 - Dates to diary: firm dates only, each with a `data-due` countdown. Drop passed ones (the
   page's JS also hides them). The Open consultations tile, this list and the overflow line must
   match the open employment consultations on GOV.UK and Acas, with closing dates.

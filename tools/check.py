@@ -317,6 +317,16 @@ def run(html, today, repo, rep):
         if why and words(why.text()) > 10:
             rep.fail(f"{where}: reason line is {words(why.text())} words (max 10)")
 
+    # ---- statutory rates card
+    rates = root.first(lambda n: n.attrs.get("aria-labelledby") == "rates-h")
+    rate_links = [a.attrs.get("href", "") for a in rates.all(is_src)] if rates else []
+    if not rates:
+        rep.fail("statutory rates card is missing")
+    elif not any("gov.uk/" in h for h in rate_links):
+        rep.fail("rates card: needs Source ↗ links to the GOV.UK pages its rates come from")
+    for h in rate_links:
+        item_links.setdefault(h, "rates card")
+
     # ---- sources
     details = root.first(has_class("sources"))
     footer_links = [a.attrs.get("href", "") for a in details.all(lambda n: n.tag == "a")] if details else []
