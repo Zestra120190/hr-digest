@@ -29,6 +29,11 @@ Rules for any edit:
 - The page must stay fully self-contained: all CSS/JS inline, no external requests (no web
   fonts — use the local-font stacks already in the CSS variables). The page is public and
   search-indexable — do NOT add a `robots noindex` tag.
+- Never edit the page's `<script>` block, not even whitespace, and never add another script or
+  an `on*=` handler. A Cloudflare security header lets only that exact script run, so any change
+  to it silently stops the checklist, countdowns, timeline rail and stale banner. Only Jack may
+  change the script, and he must update the script hash in the Cloudflare header rule at the
+  same time.
 - Never delete the `CNAME` file (`digest.hrlar.co.uk`) — it holds the custom domain; removing it
   breaks the live site. Never delete `_config.yml` either — it keeps this file and `tools/` off
   the public site. Only edit `index.html` on a refresh.
