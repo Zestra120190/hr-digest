@@ -2,6 +2,8 @@
 <html lang="en-GB">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F6F1E7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111010" media="(prefers-color-scheme: dark)">
 <title>HR Digest — UK Employment Brief</title>
 <style>
   :root {
@@ -106,6 +108,7 @@
     line-height: 1.55;
     margin: 0;
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 22%, transparent);
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -113,6 +116,23 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
+  a, summary, .check label { touch-action: manipulation; }
+
+  /* ---------- Skip link ---------- */
+  .skip {
+    position: absolute;
+    top: -60px;
+    left: 12px;
+    z-index: 10;
+    padding: 8px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .skip:focus { top: 12px; }
 
   .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
 
@@ -281,7 +301,7 @@
   .rag > li { padding: 14px 0; border-top: 1px solid var(--line); }
   .rag > li:first-child { border-top: 0; padding-top: 4px; }
   .rag .rag-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
-  .rag h3 { font-size: 14.5px; font-weight: 650; margin: 0; }
+  .rag h3 { font-size: 14.5px; font-weight: 650; margin: 0; text-wrap: balance; }
   .rag p { margin: 0 0 6px; font-size: 13.5px; color: var(--ink-2); }
   .rag p b { color: var(--ink); font-weight: 650; }
   .rag .do {
@@ -320,7 +340,7 @@
     padding-top: 3px;
     font-variant-numeric: tabular-nums;
   }
-  .news h3 { font-size: 14.5px; font-weight: 650; margin: 0 0 3px; }
+  .news h3 { font-size: 14.5px; font-weight: 650; margin: 0 0 3px; text-wrap: balance; }
   .news p { margin: 0 0 6px; color: var(--ink-2); font-size: 13.5px; }
   .news .act {
     font-size: 12.5px;
@@ -456,7 +476,7 @@
     color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
-  .stops h3 { font-size: 14px; font-weight: 650; margin: 0 0 7px; }
+  .stops h3 { font-size: 14px; font-weight: 650; margin: 0 0 7px; text-wrap: balance; }
   .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; }
   .tags li {
     font-size: 12px;
@@ -575,6 +595,8 @@
   }
 </style>
 
+<a class="skip" href="#main">Skip to main content</a>
+
 <div class="wrap" data-compiled="2026-11-24">
 
   <div class="stale" id="stale-note" hidden></div>
@@ -582,8 +604,8 @@
   <header class="masthead">
     <div>
       <div class="titleline">
-        <h1>The HR Digest</h1>
-        <span class="credit">— made by <a href="https://hrlar.co.uk" target="_blank" rel="noopener">Lara Pegg</a></span>
+        <h1 translate="no">The HR Digest</h1>
+        <span class="credit">— made by <a href="https://hrlar.co.uk" target="_blank" rel="noopener" translate="no">Lara Pegg</a></span>
       </div>
       <p class="strap">UK employment law &amp; people compliance — everything on your radar, one page.</p>
       <p class="notice">Compiled by AI each morning from the linked sources — check the source before acting. Covers Great Britain; Northern Ireland law differs.</p>
@@ -620,7 +642,7 @@
   </section>
 
   <div class="grid">
-    <main>
+    <main id="main">
 
       <section class="card" aria-labelledby="rag-h">
         <p class="eyebrow">Priority actions</p>
@@ -849,7 +871,7 @@
       <section class="card" aria-labelledby="todo-h">
         <p class="eyebrow">Compliance</p>
         <h2 id="todo-h">Action checklist</h2>
-        <p class="sub"><span class="check-progress" id="check-progress"></span> New actions come on; anything six months past its start date drops off, assumed done. Ticks are saved on this device.</p>
+        <p class="sub"><span class="check-progress" id="check-progress" aria-live="polite"></span> New actions come on; anything six months past its start date drops off, assumed done. Ticks are saved on this device.</p>
         <ul class="check" id="checklist">
           <li data-off="2026-12-19"><label><input type="checkbox" data-id="dp-complaints"><span>Stand up a data-protection complaints procedure<em class="why">30-day acknowledgement, since 19 Jun</em></span></label></li>
           <li data-off="2027-04-30"><label><input type="checkbox" data-id="harassment"><span>Evidence "all reasonable steps" on harassment<em class="why">Risk assessment + training; third parties since 30 Oct</em></span></label></li>
