@@ -29,6 +29,10 @@ Rules for any edit:
 - The page must stay fully self-contained: all CSS/JS inline, no external requests (no web
   fonts — use the local-font stacks already in the CSS variables). The page is public and
   search-indexable — do NOT add a `robots noindex` tag.
+- Keep the page's opening `<!doctype html>` and `<html lang="en-GB">` lines, the CSS
+  `color-scheme` declarations, the `theme-color` meta tags and the "Skip to main content" link.
+  Without the doctype, browsers fall back to quirks mode. Without `color-scheme`, dark mode shows
+  white checkboxes. `tools/check.py` fails if the doctype, `lang` or `color-scheme` goes missing.
 - Never edit the page's `<script>` block, not even whitespace, and never add another script or
   an `on*=` handler. A Cloudflare security header lets only that exact script run, so any change
   to it silently stops the checklist, countdowns, timeline rail and stale banner. Only Jack may
@@ -43,7 +47,9 @@ Rules for any edit:
   variables: DARK is the primary match (near-black `#111010`, cream text `#F0E6D3`, old-gold
   accent `#D4874A`); LIGHT is a warm cream-paper counterpart (bg `#F6F1E7`, warm ink `#201B15`,
   bronze-gold accent `#A85D22`). Do not reintroduce the old petrol-teal palette. Preserve the
-  existing colour tokens.
+  existing colour tokens. Every text colour must keep WCAG AA contrast (4.5:1) on the background
+  it sits on, in both themes. The light-theme `--muted`, `--soon` and `--live` are darkened for
+  this, and small accent-coloured text uses `--accent-text`, not `--accent`.
 - Keep the masthead credit to the RIGHT of the title, inline on the same baseline: a `.credit`
   span reading "— made by Lara Pegg" where "Lara Pegg" links to https://hrlar.co.uk. Do not
   remove it.

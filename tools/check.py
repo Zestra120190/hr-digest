@@ -363,6 +363,13 @@ def run(html, today, repo, rep):
     credit = root.first(has_class("credit"))
     if not credit or "made by" not in credit.text() or not credit.first(lambda n: n.tag == "a" and n.attrs.get("href", "").rstrip("/") == "https://hrlar.co.uk"):
         rep.fail("masthead credit '— made by Lara Pegg' linking to https://hrlar.co.uk is missing")
+    if not re.match(r"\s*<!doctype html>", html, re.I):
+        rep.fail("page must start with <!doctype html> — without it browsers fall back to quirks mode")
+    page = root.first(lambda n: n.tag == "html")
+    if not page or (page.attrs.get("lang") or "").lower() != "en-gb":
+        rep.fail('<html lang="en-GB"> is missing — screen readers need the page language')
+    if not re.search(r"color-scheme:\s*light dark", html):
+        rep.fail("CSS must declare 'color-scheme: light dark' — without it dark mode shows white checkboxes")
     cname = repo / "CNAME"
     if not cname.exists() or cname.read_text().strip() != "digest.hrlar.co.uk":
         rep.fail("CNAME file is missing or doesn't say digest.hrlar.co.uk — the live site depends on it")
