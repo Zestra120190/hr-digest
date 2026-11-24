@@ -370,6 +370,14 @@ def run(html, today, repo, rep):
         rep.fail('<html lang="en-GB"> is missing — screen readers need the page language')
     if not re.search(r"color-scheme:\s*light dark", html):
         rep.fail("CSS must declare 'color-scheme: light dark' — without it dark mode shows white checkboxes")
+    visible = re.sub(r"(?s)<[^>]+>", " ", no_code)
+    for m in re.finditer(r"\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|thirty|forty|fifty)\b", visible):
+        ctx = " ".join(visible[max(0, m.start() - 30):m.end() + 30].split())
+        rep.fail(f"write numbers as numerals: '{m.group(0)}' in '…{ctx}…'")
+    for a in root.all(is_src):
+        loose = "".join(c for c in a.children if isinstance(c, str))
+        if "↗" in loose or any("↗" in c.text() and c.attrs.get("aria-hidden") != "true" for c in a.children if isinstance(c, Node)):
+            rep.fail(f"source link {a.attrs.get('href', '?')}: write its arrow as <span aria-hidden=\"true\">↗</span> so screen readers skip it")
     cname = repo / "CNAME"
     if not cname.exists() or cname.read_text().strip() != "digest.hrlar.co.uk":
         rep.fail("CNAME file is missing or doesn't say digest.hrlar.co.uk — the live site depends on it")

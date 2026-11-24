@@ -21,7 +21,8 @@ Rules for any edit:
   page that confirms the item: a primary source (GOV.UK, legislation.gov.uk, Acas, ONS, a court
   or tribunal judgment) wherever one exists. Only cite a page you have opened and read; a search
   snippet or a search tool's summary is a lead, not a source. If nothing you can open confirms
-  a fact, leave it out.
+  a fact, leave it out. Write the arrow in every `.src` link as `<span aria-hidden="true">↗</span>`
+  so screen readers skip it. `tools/check.py` fails on a bare arrow.
 - Keep the trust notices exactly as they are: the masthead `.notice` line (compiled by AI, check
   the source before acting, covers Great Britain only), the date block's "Great Britain" label
   and the footer `.disclaimer`. Coverage is Great Britain: leave out Northern Ireland-only
@@ -56,6 +57,9 @@ Rules for any edit:
 - Keep it short: Lara finds long text hard going. The word limits below are hard limits and
   apply to carried-forward text too. When adding a fact, cut another rather than lengthening an
   entry. Keep the page under 2,500 words, excluding the sources and the footer disclaimer.
+  Write numbers from 2 up as numerals (2, 8, 6 months, 8-step), because they're quicker to scan.
+  Spell out "one", and spell out a number that starts a sentence, heading or list item ("Six-month
+  unfair dismissal…"). `tools/check.py` fails on a lowercase number word.
 - Before every push, run `python3 tools/check.py` from the repo root (add `--links` when the
   network allows; otherwise open any new link with WebFetch). It checks dates, expiry, limits,
   sources and the rules below. Fix every FAIL and re-run; never push a page that fails. Never
